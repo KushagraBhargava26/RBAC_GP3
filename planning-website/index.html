@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RBAC Group 3 - Team Planning Dashboard for Infosys Springboard Internship">
+    <title>RBAC Group 3 | Team Planning Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">RBAC <span class="highlight">GP3</span></span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#project" class="nav-link">Project</a></li>
+            <li><a href="#team" class="nav-link">Team</a></li>
+            <li><a href="#milestones" class="nav-link">Milestones</a></li>
+            <li><a href="tasks.html" class="nav-link task-link">📋 Assign Tasks</a></li>
+        </ul>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="badge">Infosys Springboard Internship 2025-26</div>
+            <h1 class="hero-title">
+                Welcome to <span class="gradient-text">RBAC Group 3</span>
+            </h1>
+            <p class="hero-subtitle">
+                Building a Company Internal Chatbot with Role-Based Access Control
+            </p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Team Members</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Weeks</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Milestones</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#project" class="btn btn-primary">View Project Details</a>
+                <a href="tasks.html" class="btn btn-secondary">Manage Tasks</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview Section -->
+    <section id="project" class="section project-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">About The Project</span>
+                <h2 class="section-title">Company Internal Chatbot with RBAC</h2>
+                <p class="section-description">A secure internal chatbot system using Retrieval-Augmented Generation (RAG)</p>
+            </div>
+            
+            <div class="project-overview">
+                <div class="overview-card main-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Project Goal</h3>
+                    <p>Build a secure internal chatbot that processes natural language queries and retrieves department-specific company information. The system authenticates users, assigns roles (Finance, Marketing, HR, Engineering, C-Level, Employees), and provides role-based access to company documents stored in a vector database.</p>
+                </div>
+                
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon">📄</div>
+                        <h3>Document Processing</h3>
+                        <p>Extract, preprocess, and index company documents (markdown and CSV) into a vector database with role-based metadata tags.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🔐</div>
+                        <h3>Secure Authentication</h3>
+                        <p>Implement secure user authentication and role-based access control (RBAC) middleware for data protection.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🤖</div>
+                        <h3>RAG Pipeline</h3>
+                        <p>Build a RAG pipeline integrating semantic search with free LLMs to generate evidence-based responses.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🎨</div>
+                        <h3>Streamlit Interface</h3>
+                        <p>Develop a Streamlit web interface for user login, chat interaction, and role-specific information retrieval.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="tech-stack">
+                <h3 class="tech-title">🛠️ Technology Stack</h3>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="tech-label">Backend</span>
+                        <span class="tech-value">FastAPI, Python 3.8+</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">Frontend</span>
+                        <span class="tech-value">Streamlit</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">Vector DB</span>
+                        <span class="tech-value">Chroma / Qdrant</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">Embeddings</span>
+                        <span class="tech-value">Sentence Transformers</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">LLM</span>
+                        <span class="tech-value">OpenRouter / HuggingFace</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">Database</span>
+                        <span class="tech-value">SQLite</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">Auth</span>
+                        <span class="tech-value">PyJWT</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-label">Version Control</span>
+                        <span class="tech-value">GitHub</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF Reference -->
+            <div class="pdf-reference">
+                <div class="pdf-icon">📑</div>
+                <div class="pdf-info">
+                    <h4>Project Documentation</h4>
+                    <p>AI_Company Internal Chatbot with Role-Based Access Control (1).pdf</p>
+                </div>
+                <a href="../AI_Company Internal Chatbot with Role-Based Access Control (1).pdf" target="_blank" class="btn btn-outline">View PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section team-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Team</span>
+                <h2 class="section-title">Meet the RBAC Group 3 Team</h2>
+                <p class="section-description">Led by Arshad Pasha | 8 Active Members</p>
+            </div>
+
+            <!-- Team Leader -->
+            <div class="team-leader">
+                <div class="leader-card">
+                    <div class="leader-avatar">
+                        <span class="avatar-letter">A</span>
+                        <span class="leader-badge">👑 Team Leader</span>
+                    </div>
+                    <div class="leader-info">
+                        <h3>Arshad Pasha</h3>
+                        <p class="leader-email">arshadpashaintern@gmail.com</p>
+                        <div class="leader-links">
+                            <a href="https://github.com/pashaarshad" target="_blank" class="github-link">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="status-indicator active">
+                        <span class="status-dot"></span>
+                        Active
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Team Members -->
+            <h3 class="team-subtitle">✅ Active Team Members</h3>
+            <div class="team-grid">
+                <!-- Depuru Joshika Reddy -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">D</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Depuru Joshika Reddy</h4>
+                        <p class="member-email">joshikareddy07@gmail.com</p>
+                        <a href="https://github.com/joshikareddy07" target="_blank" class="github-mini">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+
+                <!-- Guru Karthik Reddy Marthala -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">G</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Guru Karthik Reddy Marthala</h4>
+                        <p class="member-email">marthalagurukarthikreddy11@gmail.com</p>
+                        <a href="https://github.com/karthik10457" target="_blank" class="github-mini">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+
+                <!-- Kavya Ghantasala -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">K</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Kavya Ghantasala</h4>
+                        <p class="member-email">vtu24677@veltech.edu.in</p>
+                        <a href="https://github.com/kavyaghantasala" target="_blank" class="github-mini">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+
+                <!-- Kushagra Bhargava -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">K</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Kushagra Bhargava</h4>
+                        <p class="member-email">kushagra.23bai10987@vitbhopal.ac.in</p>
+                        <a href="https://github.com/KushagraBhargava26" target="_blank" class="github-mini">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+
+                <!-- Mandha Shirisha -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">M</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Mandha Shirisha</h4>
+                        <p class="member-email">mandhashirisha90@gmail.com</p>
+                        <a href="https://github.com/Shirisha3141" target="_blank" class="github-mini">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+
+                <!-- Sri Saranya Chandrapati -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">S</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Sri Saranya Chandrapati</h4>
+                        <p class="member-email">srnya0986@gmail.com</p>
+                        <a href="#" class="github-mini disabled">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+
+                <!-- Vinuthna Jangam -->
+                <div class="member-card active">
+                    <div class="member-avatar">
+                        <span class="avatar-letter">V</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Vinuthna Jangam</h4>
+                        <p class="member-email">vinuthnaaj@gmail.com</p>
+                        <a href="https://github.com/vinuthnajangam" target="_blank" class="github-mini">GitHub</a>
+                    </div>
+                    <div class="status-badge active">Active</div>
+                </div>
+            </div>
+
+            <!-- Inactive Team Members -->
+            <h3 class="team-subtitle inactive-title">⚠️ Inactive Members (Not Participating)</h3>
+            <div class="team-grid inactive-grid">
+                <!-- Harish Yadav -->
+                <div class="member-card inactive">
+                    <div class="member-avatar inactive">
+                        <span class="avatar-letter">H</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Harish Yadav</h4>
+                        <p class="member-email">hkyadav9034@gmail.com</p>
+                    </div>
+                    <div class="status-badge inactive">Inactive</div>
+                </div>
+
+                <!-- Prithika -->
+                <div class="member-card inactive">
+                    <div class="member-avatar inactive">
+                        <span class="avatar-letter">P</span>
+                    </div>
+                    <div class="member-info">
+                        <h4>Prithika</h4>
+                        <p class="member-email">Email not available</p>
+                    </div>
+                    <div class="status-badge inactive">Inactive</div>
+                </div>
+            </div>
+
+            <!-- GitHub Repository -->
+            <div class="github-repo">
+                <div class="repo-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </div>
+                <div class="repo-info">
+                    <h4>Project Repository</h4>
+                    <p>pashaarshad/RBAC_GP3</p>
+                </div>
+                <a href="https://github.com/pashaarshad/RBAC_GP3" target="_blank" class="btn btn-primary">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Milestones Section -->
+    <section id="milestones" class="section milestones-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Project Timeline</span>
+                <h2 class="section-title">Project Milestones</h2>
+                <p class="section-description">8 Weeks • 4 Major Milestones • 8 Modules</p>
+            </div>
+
+            <div class="timeline">
+                <!-- Milestone 1 -->
+                <div class="milestone-card" data-milestone="1">
+                    <div class="milestone-header">
+                        <div class="milestone-number">1</div>
+                        <div class="milestone-meta">
+                            <h3>Data Preparation & Vector DB</h3>
+                            <span class="milestone-weeks">Weeks 1-2</span>
+                        </div>
+                        <div class="milestone-status in-progress">In Progress</div>
+                    </div>
+                    <div class="milestone-content">
+                        <div class="module">
+                            <h4>📚 Module 1: Environment Setup & Data Exploration (Week 1)</h4>
+                            <ul>
+                                <li>Set up Python virtual environment with dependencies</li>
+                                <li>Clone GitHub repository with RAG documents</li>
+                                <li>Explore all documents (markdown and CSV formats)</li>
+                                <li>Create role-to-document mapping</li>
+                            </ul>
+                            <div class="deliverables">
+                                <strong>Deliverables:</strong> Configured environment, folder structure, role-document mapping, data summary report
+                            </div>
+                        </div>
+                        <div class="module">
+                            <h4>📝 Module 2: Document Preprocessing & Metadata Tagging (Week 2)</h4>
+                            <ul>
+                                <li>Parse markdown and CSV documents</li>
+                                <li>Clean text and normalize data</li>
+                                <li>Chunk documents into 300-512 token segments</li>
+                                <li>Assign role-based metadata</li>
+                            </ul>
+                            <div class="deliverables">
+                                <strong>Deliverables:</strong> Preprocessing module, cleaned chunks, metadata mapping, QA report
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="milestone-card" data-milestone="2">
+                    <div class="milestone-header">
+                        <div class="milestone-number">2</div>
+                        <div class="milestone-meta">
+                            <h3>Backend Auth & Search</h3>
+                            <span class="milestone-weeks">Weeks 3-4</span>
+                        </div>
+                        <div class="milestone-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="milestone-content">
+                        <div class="module">
+                            <h4>🔍 Module 3: Vector Database & Embedding Generation (Week 3)</h4>
+                            <ul>
+                                <li>Select and download embedding model</li>
+                                <li>Generate vector embeddings for all chunks</li>
+                                <li>Initialize vector database (Chroma/Qdrant)</li>
+                                <li>Implement semantic search functionality</li>
+                            </ul>
+                        </div>
+                        <div class="module">
+                            <h4>🔒 Module 4: Role-Based Search & Query Processing (Week 4)</h4>
+                            <ul>
+                                <li>Build RBAC filtering logic</li>
+                                <li>Implement role hierarchy</li>
+                                <li>Preprocess and normalize queries</li>
+                                <li>Test and validate role-based access</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="milestone-card" data-milestone="3">
+                    <div class="milestone-header">
+                        <div class="milestone-number">3</div>
+                        <div class="milestone-meta">
+                            <h3>RAG Pipeline & LLM</h3>
+                            <span class="milestone-weeks">Weeks 5-6</span>
+                        </div>
+                        <div class="milestone-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="milestone-content">
+                        <div class="module">
+                            <h4>🔐 Module 5: User Authentication & RBAC Middleware (Week 5)</h4>
+                            <ul>
+                                <li>Initialize FastAPI backend</li>
+                                <li>Set up SQLite user database</li>
+                                <li>Implement JWT-based authentication</li>
+                                <li>Build RBAC middleware</li>
+                            </ul>
+                        </div>
+                        <div class="module">
+                            <h4>🤖 Module 6: RAG Pipeline & LLM Integration (Week 6)</h4>
+                            <ul>
+                                <li>Integrate free LLM (OpenRouter/HuggingFace)</li>
+                                <li>Design system prompts</li>
+                                <li>Implement RAG pipeline</li>
+                                <li>Add source citation system</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="milestone-card" data-milestone="4">
+                    <div class="milestone-header">
+                        <div class="milestone-number">4</div>
+                        <div class="milestone-meta">
+                            <h3>Frontend & Deployment</h3>
+                            <span class="milestone-weeks">Weeks 7-8</span>
+                        </div>
+                        <div class="milestone-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="milestone-content">
+                        <div class="module">
+                            <h4>🎨 Module 7: Streamlit Frontend Development (Week 7)</h4>
+                            <ul>
+                                <li>Design Streamlit application interface</li>
+                                <li>Create login and chat components</li>
+                                <li>Display source documents and citations</li>
+                                <li>Integrate frontend with backend API</li>
+                            </ul>
+                        </div>
+                        <div class="module">
+                            <h4>🚀 Module 8: System Integration, Testing & Deployment (Week 8)</h4>
+                            <ul>
+                                <li>Complete end-to-end testing</li>
+                                <li>Write comprehensive documentation</li>
+                                <li>Prepare deployment package</li>
+                                <li>Create demo video</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">RBAC <span class="highlight">GP3</span></span>
+                </div>
+                <p class="footer-text">Infosys Springboard Internship 2025-26</p>
+                <p class="footer-copyright">© 2026 RBAC Group 3. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/pashaarshad/RBAC_GP3" target="_blank">GitHub</a>
+                <a href="https://chat.whatsapp.com/BTNttTXfD2P70LgVS3cxYg" target="_blank">WhatsApp Group</a>
+                <a href="tasks.html">Task Manager</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
