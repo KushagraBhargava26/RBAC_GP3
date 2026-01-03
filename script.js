@@ -1,26 +1,26 @@
 // RBAC Group 3 - Team Planning Dashboard JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.querySelector('.nav-links');
 
     if (navToggle) {
-        navToggle.addEventListener('click', function() {
+        navToggle.addEventListener('click', function () {
             navLinks.classList.toggle('active');
         });
     }
 
     // Close mobile menu when clicking on a link
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             navLinks.classList.remove('active');
         });
     });
 
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href !== '#') {
                 e.preventDefault();
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Navbar background change on scroll
     const navbar = document.querySelector('.navbar');
-    
+
     function updateNavbar() {
         if (window.scrollY > 50) {
             navbar.style.background = 'hsla(225, 25%, 10%, 0.95)';
@@ -77,12 +77,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Milestone card toggle (expand/collapse)
     const milestoneHeaders = document.querySelectorAll('.milestone-header');
-    
+
     milestoneHeaders.forEach(header => {
-        header.addEventListener('click', function() {
+        header.addEventListener('click', function () {
             const content = this.nextElementSibling;
             const card = this.closest('.milestone-card');
-            
+
             // Toggle current card
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Animate elements on scroll
-    const animateElements = document.querySelectorAll('.overview-card, .member-card, .milestone-card, .stat-card');
+    const animateElements = document.querySelectorAll('.overview-card, .member-card, .milestone-card, .stat-card, .tech-card, .architecture-section');
     animateElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
