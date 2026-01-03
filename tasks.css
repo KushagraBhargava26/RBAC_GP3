@@ -253,18 +253,18 @@
 }
 
 .priority-badge.low {
-    background: hsla(145, 70%, 45%, 0.15);
+    background: hsla(152, 60%, 45%, 0.15);
     color: var(--success);
 }
 
 .priority-badge.medium {
-    background: hsla(45, 90%, 50%, 0.15);
+    background: hsla(38, 92%, 50%, 0.15);
     color: var(--warning);
 }
 
 .priority-badge.high {
-    background: hsla(0, 75%, 55%, 0.15);
-    color: hsl(0, 75%, 55%);
+    background: hsla(0, 65%, 55%, 0.15);
+    color: var(--danger);
 }
 
 /* Status Badge */
@@ -277,12 +277,12 @@
 }
 
 .status-badge-task.pending {
-    background: hsla(45, 90%, 50%, 0.15);
+    background: hsla(38, 92%, 50%, 0.15);
     color: var(--warning);
 }
 
 .status-badge-task.in-progress {
-    background: hsla(220, 90%, 56%, 0.15);
+    background: hsla(175, 70%, 41%, 0.15);
     color: var(--primary-light);
 }
 
@@ -418,7 +418,7 @@
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px hsla(220, 90%, 56%, 0.2);
+    box-shadow: 0 0 0 3px hsla(175, 70%, 41%, 0.2);
 }
 
 .form-group textarea {
