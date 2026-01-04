@@ -11,137 +11,137 @@ const teamMembers = [
     'Sri Saranya Chandrapati', 'Vinuthna Jangam'
 ];
 
-// 2. Define The Tasks (WEEK 1 DETAILED PLAN)
+// 2. Define The Tasks (MODULE 1: Environment Setup & Data Exploration)
 const defaultTasks = [
-    // Task 1: Environment Setup (Member 1: Arshad)
+    // 1. Arshad (Monitor / All-rounded)
     {
         id: 1,
-        title: 'Environment Setup & Standardization',
-        description: `<strong>Goal:</strong> Make sure the whole team uses the same Python setup.<br><br>
-1. Create Python virtual environment.<br>
-2. Install required packages: FastAPI, Streamlit, LangChain, sentence-transformers, pandas.<br>
-3. Create requirements.txt.<br>
-4. Write simple setup steps (SETUP.md).<br>
-5. Test if the setup works without errors.<br><br>
-<strong>📌 Output:</strong> requirements.txt + setup instructions`,
+        title: 'Module 1 Lead: Monitoring & Supervision',
+        description: `<strong>Goal:</strong> Monitor the completion of all Week 1 deliverables.<br><br>
+1. Verify Python Env setup for the team.<br>
+2. Review the Repository structure created by Bhargava.<br>
+3. Review Document Analysis (HR, Finance, Marketing, Tech).<br>
+4. Validate the Role-Mapping matrix.<br><br>
+<strong>📌 Deliverable:</strong> Final sign-off on Week 1.`,
         assignee: 'Arshad Pasha',
         priority: 'high',
-        milestone: 'Milestone 1',
-        due_date: '2026-01-07',
+        milestone: 'Module 1',
+        due_date: '2026-01-12',
         status: 'in-progress'
     },
 
-    // Task 2: Repository & Folder Structure (Member 2: Depuru Joshika Reddy)
+    // 2. Bhargava (Repo & Structure)
     {
         id: 2,
-        title: 'Repository & Folder Structure',
-        description: `<strong>Goal:</strong> Prepare a clean, professional project structure.<br><br>
-1. Clone the GitHub documents repo.<br>
-2. Decide folder structure (e.g. data/finance, data/hr, backend/, frontend/).<br>
-3. Keep files organized (no random dumps).<br>
-4. Clean up the repo.<br><br>
-<strong>📌 Output:</strong> Final folder structure committed to repo.`,
-        assignee: 'Depuru Joshika Reddy',
+        title: 'Repository & Folder Structure Initialization',
+        description: `<strong>Goal:</strong> Initialize the project foundation.<br><br>
+1. Clone GitHub repository containing RAG documents.<br>
+2. Initialize project folder structure on local system.<br>
+3. Structure: /data (finance, hr, etc.), /src, /docs.<br>
+4. Ensure .gitignore and requirements.txt are present.<br><br>
+<strong>📌 Deliverable:</strong> Project folder structure initialized on local system.`,
+        assignee: 'Kushagra Bhargava',
         priority: 'high',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-08',
         status: 'pending'
     },
 
-    // Task 3: Finance & CSV Document Exploration (Member 3: Guru Karthik Reddy)
+    // 3. Karthik (Finance & CSV - Same as before)
     {
         id: 3,
-        title: 'Finance & CSV Document Exploration',
-        description: `<strong>Goal:</strong> Understand what data exists in Finance & CSVs.<br><br>
+        title: 'Data Exploration: Finance & CSV Files',
+        description: `<strong>Goal:</strong> Explore financial data.<br><br>
 1. Explore all CSV files in the dataset.<br>
-2. Identify what information each file contains.<br>
-3. Note sensitive vs general information.<br>
-4. Create short summaries for the team.<br><br>
-<strong>📌 Output:</strong> Document summaries (short, clear notes).`,
+2. Understand document content and structure for Finance.<br>
+3. Identify sensitive vs general financial information.<br><br>
+<strong>📌 Deliverable:</strong> Finance Data exploration summary.`,
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-09',
         status: 'pending'
     },
 
-    // Task 4: HR Documents Exploration (Member 4: Kavya Ghantasala)
+    // 4. Joshika (HR Documentation)
     {
         id: 4,
-        title: 'HR Documents Exploration',
-        description: `<strong>Goal:</strong> Analyze all HR-related documents.<br><br>
-1. Read through HR policy documents and employee records.<br>
-2. Identify key data points (Salary, Personal Info, Public Info).<br>
-3. Determine who should access these (e.g. HR Only vs All Employees).<br><br>
-<strong>📌 Output:</strong> HR Document summaries & sensitivity notes.`,
-        assignee: 'Kavya Ghantasala',
+        title: 'Data Exploration: HR Documentation',
+        description: `<strong>Goal:</strong> Explore HR-related data.<br><br>
+1. Read through HR policy documents and employee data.<br>
+2. Understand document content and structure.<br>
+3. Identify employee records and privacy needs.<br><br>
+<strong>📌 Deliverable:</strong> HR Data exploration summary.`,
+        assignee: 'Depuru Joshika Reddy',
         priority: 'medium',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-09',
         status: 'pending'
     },
 
-    // Task 5: Marketing Documents Exploration (Member 5: Kushagra Bhargava)
+    // 5. Kavya (Marketing - Assigned based on focus)
     {
         id: 5,
-        title: 'Marketing Documents Exploration',
-        description: `<strong>Goal:</strong> Analyze Marketing & Sales materials.<br><br>
-1. Review marketing campaigns, brochures, and public docs.<br>
-2. Identify which documents are "Public" (Safe) and which are "Internal Strategies" (Confidential).<br><br>
-<strong>📌 Output:</strong> Marketing Document summaries.`,
-        assignee: 'Kushagra Bhargava',
+        title: 'Data Exploration: Marketing Documentation',
+        description: `<strong>Goal:</strong> Explore Marketing data.<br><br>
+1. Read through marketing reports and campaign docs.<br>
+2. Understand document content and structure.<br>
+3. Check for public vs internal marketing info.<br><br>
+<strong>📌 Deliverable:</strong> Marketing Data exploration summary.`,
+        assignee: 'Kavya Ghantasala',
         priority: 'low',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-09',
         status: 'pending'
     },
 
-    // Task 6: Engineering / Tech Docs Exploration (Member 6: Mandha Shirisha)
+    // 6. Shirisha (Engineering/Tech)
     {
         id: 6,
-        title: 'Engineering & Tech Docs Exploration',
-        description: `<strong>Goal:</strong> Understand the technical documentation.<br><br>
-1. Review API docs, architecture diagrams, and dev guides.<br>
-2. Summarize the technical stack described in the docs.<br>
-3. Identify access mapping (Engineering Team only?).<br><br>
-<strong>📌 Output:</strong> Tech details summary.`,
+        title: 'Data Exploration: Engineering & Tech Docs',
+        description: `<strong>Goal:</strong> Explore Technical documentation.<br><br>
+1. read through Engineering/Tech docs (APIs, Architecture).<br>
+2. Understand document content and structure.<br>
+3. Identify technical requirements found in docs.<br><br>
+<strong>📌 Deliverable:</strong> Tech Data exploration summary.`,
         assignee: 'Mandha Shirisha',
         priority: 'medium',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-09',
         status: 'pending'
     },
 
-    // Task 7: Role-Document Mapping (Member 7: Sri Saranya Chandrapati)
+    // 7. Saranya (Role Mapping)
     {
         id: 7,
-        title: 'Role-to-Document Mapping (RBAC)',
-        description: `<strong>Goal:</strong> Decide access control (RBAC foundation).<br><br>
-1. Map roles clearly: Finance → finance docs, HR → HR docs, etc.<br>
-2. Define "C-Level" access (ALL docs).<br>
-3. Define "Employee" access (General Handbook).<br>
-4. Create a matrix table.<br><br>
-<strong>📌 Output:</strong> Role-Document Mapping table (Markdown).`,
+        title: 'Role-to-Document Mapping',
+        description: `<strong>Goal:</strong> Create the RBAC foundation.<br><br>
+1. Map Roles: Finance → financial reports.<br>
+2. Map Roles: Marketing → marketing reports.<br>
+3. Map Roles: HR → employee data.<br>
+4. Map Roles: Engineering → tech docs.<br>
+5. Map Roles: C-Level → all docs.<br><br>
+<strong>📌 Deliverable:</strong> Role-document mapping documentation (Matrix).`,
         assignee: 'Sri Saranya Chandrapati',
         priority: 'high',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-11',
         status: 'pending'
     },
 
-    // Task 8: Final Week 1 Summary & README (Member 8: Vinuthna Jangam)
+    // 8. Vinuthna (Final Summary)
     {
         id: 8,
-        title: 'Final Week 1 Summary Report',
-        description: `<strong>Goal:</strong> Make everything understandable for future weeks.<br><br>
-1. Combine everyone's summaries (Env Setup, Data notes, Role mapping).<br>
-2. Write a consolidated WEEK1_SUMMARY.md.<br>
-3. Ensure the README.md is clean and professional.<br>
-4. Verify the repo looks good.<br><br>
-<strong>📌 Output:</strong> WEEK1_SUMMARY.md & Updated README.`,
+        title: 'Week 1 Content Summary Report',
+        description: `<strong>Goal:</strong> Consolidate Week 1 findings.<br><br>
+1. Combine all data exploration summaries.<br>
+2. Combine env setup details.<br>
+3. Combine role mapping details.<br>
+4. Create the final report.<br><br>
+<strong>📌 Deliverable:</strong> Data exploration and content summary report.`,
         assignee: 'Vinuthna Jangam',
         priority: 'high',
-        milestone: 'Milestone 1',
+        milestone: 'Module 1',
         due_date: '2026-01-12',
         status: 'pending'
     }
@@ -173,8 +173,9 @@ document.addEventListener('DOMContentLoaded', function () {
 // --- CORE FUNCTIONS (LOCAL ONLY) ---
 
 function loadTasks() {
-    // 1. Try to get assignments from LocalStorage (so checkboxes work)
-    const stored = localStorage.getItem('rbac_tasks_local_v2'); // New key for fresh start
+    // 1. Try to get assignments from LocalStorage
+    // Changed key to force reload of these new Module 1 tasks
+    const stored = localStorage.getItem('rbac_tasks_module1_v1');
 
     if (stored) {
         tasks = JSON.parse(stored);
@@ -189,24 +190,24 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_local_v2', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_module1_v1', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
 
 // "Restore Defaults" Button
 function seedDatabase() {
-    if (confirm("Load the 'Week 1 Detailed Plan' for all 8 members? This will reset current changes.")) {
+    if (confirm("Load 'Module 1' assignments for Week 1? This resets current changes.")) {
         tasks = [...defaultTasks];
         saveTasks();
-        alert("Week 1 Plan Loaded Successfully!");
+        alert("Module 1 Assignments Loaded!");
     }
 }
 window.seedDatabase = seedDatabase;
 
 // Create
 function createTask(taskData) {
-    const newId = Date.now(); // Simple ID generation
+    const newId = Date.now();
     const newTask = { ...taskData, id: newId, created_at: new Date().toISOString() };
     tasks.unshift(newTask);
     saveTasks();
@@ -241,7 +242,7 @@ function toggleComplete(id) {
 function editTask(id) {
     const task = tasks.find(t => t.id === id);
     if (task) {
-        // Strip HTML for the form edit
+        // Strip HTML
         const cleanDesc = task.description.replace(/<br>/g, '\n').replace(/<strong>/g, '').replace(/<\/strong>/g, '');
         const editableTask = { ...task, description: cleanDesc };
         openModal(editableTask);
@@ -260,12 +261,10 @@ function toggleDescription(id) {
         btnEl.textContent = 'Hide Description ⬆';
     }
 }
-// Global scope for HTML button
 window.toggleDescription = toggleDescription;
 
 function handleFormSubmit(e) {
     e.preventDefault();
-    // Convert newlines to BR for display
     const rawDesc = document.getElementById('taskDescription').value;
     const formattedDesc = rawDesc.replace(/\n/g, '<br>');
 
@@ -287,7 +286,7 @@ function handleFormSubmit(e) {
     closeModal();
 }
 
-// --- RENDER FUNCTIONS (CLEANED UP) ---
+// --- RENDER FUNCTIONS (CLEAN - No Badges per request) ---
 
 function renderTasks() {
     let filteredTasks = tasks;
@@ -316,13 +315,11 @@ function createTaskHTML(task) {
     const names = task.assignee.split(' ');
     const initials = names.map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
-    // Status badges REMOVED
     const priorityClass = `priority-${task.priority}`;
 
     return `
     <div class="task-card ${priorityClass}">
         <div class="task-header">
-            <!-- Space holder if needed or just empty -->
             <div style="flex-grow:1"></div> 
             
             <div class="task-actions">
@@ -348,22 +345,19 @@ function createTaskHTML(task) {
                 </div>
                 <div class="task-date">📅 Due: ${task.due_date || 'No Date'}</div>
             </div>
-            
-            <!-- Check/Complete Button REMOVED -->
         </div>
     </div>
     `;
 }
 
 function updateStats() {
-    // Only update if elements exist (Safe for tasks.html)
     const totalEl = document.getElementById('totalTasks');
     if (!totalEl) return;
-
     totalEl.textContent = tasks.length;
-    document.getElementById('pendingTasks').textContent = tasks.filter(t => t.status === 'pending').length;
-    document.getElementById('inProgressTasks').textContent = tasks.filter(t => t.status === 'in-progress').length;
-    document.getElementById('completedTasks').textContent = tasks.filter(t => t.status === 'completed').length;
+    // (Other stats elements were removed from HTML, so we check existence)
+    if (document.getElementById('pendingTasks')) document.getElementById('pendingTasks').textContent = tasks.filter(t => t.status === 'pending').length;
+    if (document.getElementById('inProgressTasks')) document.getElementById('inProgressTasks').textContent = tasks.filter(t => t.status === 'in-progress').length;
+    if (document.getElementById('completedTasks')) document.getElementById('completedTasks').textContent = tasks.filter(t => t.status === 'completed').length;
 }
 
 // Helpers
@@ -382,7 +376,6 @@ function setupEventListeners() {
     taskModal.addEventListener('click', (e) => { if (e.target === taskModal) closeModal(); });
     taskForm.addEventListener('submit', handleFormSubmit);
 
-    // Filter tabs listener (safe check)
     if (filterTabs && filterTabs.length > 0) {
         filterTabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -405,7 +398,7 @@ function openModal(task = null) {
         editingTaskId = task.id;
         modalTitle.textContent = 'Edit Task';
         document.getElementById('taskTitle').value = task.title;
-        // Strip HTML for editing
+        // Strip HTML
         const cleanDesc = task.description.replace(/<br>/g, '\n').replace(/<strong>/g, '').replace(/<\/strong>/g, '');
         document.getElementById('taskDescription').value = cleanDesc;
 
