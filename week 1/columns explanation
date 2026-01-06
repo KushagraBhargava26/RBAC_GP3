@@ -1,0 +1,24 @@
+Data Exploration: Finance CSV Files – All Columns
+Explanation
+Goal:
+To understand all columns present in Finance-related CSV files and explain their purpose clearly.
+Common Columns in Finance CSV Files:
+1. Transaction_ID: Unique identifier for each financial transaction.
+2. Date: The date on which the transaction occurred.
+3. Department: Department responsible for the transaction (Finance, HR, Marketing, etc.).
+4. Account_Number: Bank or internal account number linked to the transaction (Sensitive data).
+5. Transaction_Type: Type of transaction such as Credit or Debit.
+6. Amount: Monetary value of the transaction.
+7. Currency: Currency used for the transaction (INR, USD, etc.).
+8. Expense_Category: Category of expense like Salary, Operations, Marketing, Infrastructure.
+9. Revenue_Source: Source from which revenue is generated.
+10. Approval_Status: Indicates whether the transaction is Approved, Pending, or Rejected.
+11. Approved_By: Name or role of the person who approved the transaction.
+12. Remarks: Additional notes related to the transaction.
+Sensitive vs General Columns:
+Sensitive: Account_Number, Approved_By, Salary-related Amounts.
+General: Date, Department, Expense_Category, Revenue_Source, Currency.
+Conclusion:
+Understanding all columns helps in accurate financial analysis and ensures sensitive information is
+protected using RBAC.
+Deliverable: Complete explanation of all Finance CSV columns
