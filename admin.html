@@ -70,10 +70,11 @@
                     <span>⚠️</span> IMPORTANT INSTRUCTIONS
                 </div>
                 <ul class="notice-list">
-                    <li>1. <span class="notice-item-highlight">Fork</span> the main repository to your own GitHub
-                        account.</li>
-                    <li>2. Create a specific branch named <span class="notice-item-highlight">yourname/week1</span>
-                        (e.g., <code>kavya/week1</code>).</li>
+                    <li>1. <span class="notice-item-highlight">Clone</span> the main repository to your local system.
+                    </li>
+                    <li>2. Create a branch named <span class="notice-item-highlight">yourname/week2</span> (e.g.,
+                        <code>kavya/week2</code>).
+                    </li>
                     <li>3. Work ONLY on that specific branch. <strong>Do not push directly to main.</strong></li>
                     <li>4. After completion, send a message in the group: "Task has completed".</li>
                     <li>5. If you have any doubts, you can reach out to me.</li>
@@ -202,6 +203,16 @@
                     <button type="submit" class="btn btn-primary">Save Task</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Deep Explanation Modal -->
+    <div class="deep-modal-overlay" id="deepExplanationModal">
+        <div class="deep-modal">
+            <button class="deep-modal-close" onclick="closeDeepModal()">&times;</button>
+            <div id="deepModalContent">
+                <!-- Content loaded dynamically -->
+            </div>
         </div>
     </div>
 
