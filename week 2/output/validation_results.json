@@ -1,0 +1,12 @@
+{
+  "total_chunks": 1,
+  "passed": 0,
+  "failed": 1,
+  "issues": [
+    {
+      "chunk_id": 1,
+      "issue_type": "token_count",
+      "details": "Token count 961 not in range 300-512"
+    }
+  ]
+}
