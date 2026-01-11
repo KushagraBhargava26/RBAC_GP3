@@ -20,7 +20,6 @@ const week2Tasks = [
         title: 'Document Chunking & Tokenization (300-512 tokens)',
         assignee: 'Arshad Pasha',
         priority: 'high',
-        status: 'completed',
         description: `<strong>Goal:</strong> Split documents into optimal chunks for RAG.<br><br>
 1. Load cleaned documents from preprocessing.<br>
 2. Implement chunking logic (300-512 tokens per chunk).<br>
@@ -109,7 +108,6 @@ git push origin arshad/week2</code></pre>
         title: 'Parse Markdown Documents from GitHub',
         assignee: 'Kushagra Bhargava',
         priority: 'medium',
-        status: 'in-progress',
         description: `<strong>Goal:</strong> Extract content from all .md files.<br><br>
 1. Read all markdown files from week 1/data/.<br>
 2. Parse titles, headings, and content.<br>
@@ -196,7 +194,6 @@ git push origin bhargava/week2</code></pre>
         title: 'Parse CSV Documents from GitHub',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
-        status: 'completed',
         description: `<strong>Goal:</strong> Extract and structure CSV data.<br><br>
 1. Find all CSV files in week 1/data/.<br>
 2. Load each CSV using pandas.<br>
@@ -281,7 +278,6 @@ git push origin karthik/week2</code></pre>
         title: 'Text Cleaning & Normalization',
         assignee: 'Kavya Ghantasala',
         priority: 'medium',
-        status: 'completed',
         description: `<strong>Goal:</strong> Clean all extracted text data.<br><br>
 1. Normalize whitespace.<br>
 2. Remove special characters.<br>
@@ -356,7 +352,6 @@ git push origin kavya/week2</code></pre>
         title: 'Role-based Metadata Assignment',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
-        status: 'completed',
         description: `<strong>Goal:</strong> Tag each chunk with role permissions.<br><br>
 1. Create role definitions.<br>
 2. Analyze document to determine department.<br>
@@ -445,7 +440,6 @@ git push origin shirisha/week2</code></pre>
         title: 'Create Metadata Mapping Documentation',
         assignee: 'Sri Saranya Chandrapati',
         priority: 'medium',
-        status: 'completed',
         description: `<strong>Goal:</strong> Document the metadata structure.<br><br>
 1. Create mapping table (chunk → roles).<br>
 2. Document department classification.<br>
@@ -528,7 +522,6 @@ git push origin saranya/week2</code></pre>
         title: 'Preprocessing Validation & QA Report',
         assignee: 'Vinuthna Jangam',
         priority: 'medium',
-        status: 'completed',
         description: `<strong>Goal:</strong> Validate all preprocessing work.<br><br>
 1. Check chunk token ranges.<br>
 2. Validate metadata assignments.<br>
@@ -610,7 +603,6 @@ git push origin vinuthna/week2</code></pre>
         title: 'Week 2 Summary Report',
         assignee: 'Depuru Joshika Reddy',
         priority: 'low',
-        status: 'completed',
         description: `<strong>Goal:</strong> Compile the Week 2 summary.<br><br>
 1. Collect all deliverables.<br>
 2. Summarize preprocessing results.<br>
@@ -700,255 +692,6 @@ git push origin joshika/week2</code></pre>
 ];
 
 // =====================================================
-// MILESTONE 2 TASKS (Weeks 3-4: Vector DB & RBAC Search)
-// =====================================================
-const milestone2Tasks = [
-    // 1. Arshad (HARDEST) - Vector Database & Embedding Pipeline
-    {
-        id: 301,
-        title: 'Vector Database Setup & Embedding Pipeline',
-        assignee: 'Arshad Pasha',
-        priority: 'high',
-        status: 'pending',
-        difficulty: 'hardest',
-        description: `<strong>Goal:</strong> Set up ChromaDB and generate embeddings for all chunks.<br><br>
-1. Initialize ChromaDB vector database.<br>
-2. Download sentence-transformers embedding model.<br>
-3. Generate embeddings for all tagged chunks.<br>
-4. Store embeddings with metadata in ChromaDB.<br>
-5. Implement semantic search functionality.<br><br>
-<strong>📌 Output:</strong> Configured ChromaDB with indexed embeddings + embedding_pipeline.py`,
-        deepExplanation: `
-<h3>📘 Complete Guide: Vector Database & Embedding Pipeline</h3>
-<p style="color: #f87171; font-weight: bold;">⚠️ HARDEST TASK - You are the Lead for Milestone 2</p>
-<hr>
-
-<h4>🔹 STEP 1: Create Your Branch</h4>
-<pre><code>git checkout main
-git pull origin main
-git checkout -b arshad/milestone2</code></pre>
-
-<h4>🔹 STEP 2: Folder Structure</h4>
-<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
-RBAC_GP3/
-├── week 3-4/
-│   ├── src/
-│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">embedding_pipeline.py</span>
-│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">chroma_db_setup.py</span>
-│   ├── database/
-│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">chroma_store/</span>
-│   └── output/
-│       └── embedding_stats.json
-</pre>
-
-<h4>🔹 STEP 3: Install Dependencies</h4>
-<pre><code>pip install chromadb sentence-transformers</code></pre>
-
-<h4>🔹 STEP 4: Create embedding_pipeline.py</h4>
-<p><strong>📋 ChatGPT Prompt:</strong></p>
-<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px;">
-"Write a Python script that:
-1. Loads tagged_chunks.json from week 2 output
-2. Uses sentence-transformers (all-MiniLM-L6-v2) to generate embeddings
-3. Initializes ChromaDB with persistent storage
-4. Stores embeddings with metadata (chunk_id, department, accessible_roles)
-5. Implements search_similar(query, role, top_k) function
-6. Prints statistics: total chunks indexed, avg embedding time"
-</div>
-`
-    },
-
-    // 2. Kavya (HARD) - RBAC Filtering Logic
-    {
-        id: 302,
-        title: 'RBAC Filtering & Access Control Logic',
-        assignee: 'Kavya Ghantasala',
-        priority: 'high',
-        status: 'pending',
-        difficulty: 'hard',
-        description: `<strong>Goal:</strong> Implement role-based access filtering for search results.<br><br>
-1. Create RBAC filter class.<br>
-2. Implement role hierarchy (C-Level > Department > Employee).<br>
-3. Filter search results based on user role.<br>
-4. Add permission validation functions.<br><br>
-<strong>📌 Output:</strong> rbac_filter.py with RBACFilter class`,
-        deepExplanation: `
-<h3>📘 Complete Guide: RBAC Filtering Logic</h3>
-<p style="color: #f59e0b; font-weight: bold;">🔥 HARD TASK - Critical for security</p>
-<hr>
-
-<h4>🔹 Create rbac_filter.py</h4>
-<p><strong>📋 ChatGPT Prompt:</strong></p>
-<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px;">
-"Write a Python class RBACFilter that:
-1. Loads role_mappings.json from week 2 config
-2. Implements role hierarchy: c-level > finance/hr/marketing/engineering > employees
-3. Has method: can_access(user_role, document_roles) -> bool
-4. Has method: filter_results(results, user_role) -> filtered_results
-5. Handles edge cases: invalid roles, empty results
-6. Logs access attempts for audit trail"
-</div>
-`
-    },
-
-    // 3. Vinuthna (HARD) - Query Processing & Normalization
-    {
-        id: 303,
-        title: 'Query Processing & Semantic Search',
-        assignee: 'Vinuthna Jangam',
-        priority: 'high',
-        status: 'pending',
-        difficulty: 'hard',
-        description: `<strong>Goal:</strong> Process user queries and implement semantic search.<br><br>
-1. Normalize and preprocess user queries.<br>
-2. Generate query embeddings.<br>
-3. Implement similarity search in ChromaDB.<br>
-4. Rank and filter results.<br><br>
-<strong>📌 Output:</strong> query_processor.py`,
-        deepExplanation: `
-<h3>📘 Complete Guide: Query Processing</h3>
-<p style="color: #f59e0b; font-weight: bold;">🔥 HARD TASK - Core search functionality</p>
-<hr>
-
-<h4>🔹 Create query_processor.py</h4>
-<p><strong>📋 ChatGPT Prompt:</strong></p>
-<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px;">
-"Write a Python class QueryProcessor that:
-1. Normalizes user queries (lowercase, remove extra spaces)
-2. Generates query embedding using same model as documents
-3. Searches ChromaDB with configurable top_k
-4. Returns results with similarity scores
-5. Handles empty queries and invalid inputs
-6. Integrates with RBACFilter for role-based filtering"
-</div>
-`
-    },
-
-    // 4. Karthik (MEDIUM) - Search API Endpoints
-    {
-        id: 304,
-        title: 'FastAPI Search Endpoints',
-        assignee: 'Guru Karthik Reddy Marthala',
-        priority: 'medium',
-        status: 'pending',
-        difficulty: 'medium',
-        description: `<strong>Goal:</strong> Create FastAPI endpoints for search functionality.<br><br>
-1. Set up FastAPI application.<br>
-2. Create /search endpoint with role parameter.<br>
-3. Add request/response models.<br>
-4. Implement error handling.<br><br>
-<strong>📌 Output:</strong> api/search_api.py`,
-        deepExplanation: `
-<h3>📘 Complete Guide: FastAPI Search Endpoints</h3>
-<p style="color: #fbbf24; font-weight: bold;">📁 MEDIUM TASK</p>
-<hr>
-
-<h4>🔹 Create api/search_api.py</h4>
-<p><strong>📋 ChatGPT Prompt:</strong></p>
-<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px;">
-"Write a FastAPI application that:
-1. Has POST /search endpoint accepting {query, user_role, top_k}
-2. Uses QueryProcessor and RBACFilter
-3. Returns {results: [{chunk_id, content, score, source}], total}
-4. Has proper Pydantic models for request/response
-5. Includes CORS middleware
-6. Has health check endpoint /health"
-</div>
-`
-    },
-
-    // 5. Shirisha (MEDIUM) - User Role Management
-    {
-        id: 305,
-        title: 'User Role Management System',
-        assignee: 'Mandha Shirisha',
-        priority: 'medium',
-        status: 'pending',
-        difficulty: 'medium',
-        description: `<strong>Goal:</strong> Create user role management utilities.<br><br>
-1. Define user roles and permissions.<br>
-2. Create role validation functions.<br>
-3. Implement role assignment logic.<br>
-4. Create test users for each role.<br><br>
-<strong>📌 Output:</strong> auth/role_manager.py + test_users.json`,
-        deepExplanation: `
-<h3>📘 Complete Guide: User Role Management</h3>
-<p style="color: #fbbf24; font-weight: bold;">📁 MEDIUM TASK</p>
-`
-    },
-
-    // 6. Saranya (MEDIUM) - API Documentation
-    {
-        id: 306,
-        title: 'API Documentation & Testing Guide',
-        assignee: 'Sri Saranya Chandrapati',
-        priority: 'medium',
-        status: 'pending',
-        difficulty: 'medium',
-        description: `<strong>Goal:</strong> Document all API endpoints and create testing guide.<br><br>
-1. Document search API with examples.<br>
-2. Create Postman collection.<br>
-3. Write API testing guide.<br>
-4. Include sample requests/responses.<br><br>
-<strong>📌 Output:</strong> docs/API_DOCUMENTATION.md + postman_collection.json`,
-        deepExplanation: `
-<h3>📘 Complete Guide: API Documentation</h3>
-<p style="color: #fbbf24; font-weight: bold;">📁 MEDIUM TASK - Documentation focused</p>
-`
-    },
-
-    // 7. Bhargava (EASY) - Test Data & Fixtures
-    {
-        id: 307,
-        title: 'Test Data & Sample Queries',
-        assignee: 'Kushagra Bhargava',
-        priority: 'low',
-        status: 'pending',
-        difficulty: 'easy',
-        description: `<strong>Goal:</strong> Create test data and sample queries for each role.<br><br>
-1. Create sample queries for each department.<br>
-2. Define expected results for test queries.<br>
-3. Create test fixtures file.<br><br>
-<strong>📌 Output:</strong> tests/test_queries.json + tests/expected_results.json`,
-        deepExplanation: `
-<h3>📘 Complete Guide: Test Data & Fixtures</h3>
-<p style="color: #22c55e; font-weight: bold;">✅ EASY TASK - Perfect for getting back on track!</p>
-<hr>
-
-<h4>🔹 Create tests/test_queries.json</h4>
-<p>Create a JSON file with sample queries for each role:</p>
-<pre><code>{
-  "finance_queries": ["What is Q4 revenue?", "Show budget report"],
-  "hr_queries": ["What is the leave policy?", "Employee benefits"],
-  "marketing_queries": ["Campaign performance?", "Brand guidelines"],
-  "engineering_queries": ["API documentation?", "System architecture"],
-  "general_queries": ["Company mission?", "Office hours"]
-}</code></pre>
-`
-    },
-
-    // 8. Joshika - Milestone 2 Summary Report
-    {
-        id: 308,
-        title: 'Milestone 2 Summary Report',
-        assignee: 'Depuru Joshika Reddy',
-        priority: 'low',
-        status: 'pending',
-        difficulty: 'easy',
-        description: `<strong>Goal:</strong> Compile Milestone 2 summary and progress report.<br><br>
-1. Collect all deliverables from team.<br>
-2. Document vector DB setup stats.<br>
-3. Summarize RBAC implementation.<br>
-4. Create MILESTONE2_SUMMARY.md.<br><br>
-<strong>📌 Output:</strong> docs/MILESTONE2_SUMMARY.md`,
-        deepExplanation: `
-<h3>📘 Complete Guide: Milestone 2 Summary</h3>
-<p style="color: #22c55e; font-weight: bold;">✅ EASY TASK - Compile everyone's work</p>
-`
-    }
-];
-
-// =====================================================
 // WEEK 1 TASKS (Module 1: Environment Setup) - COMPLETED
 // =====================================================
 const week1Tasks = [
@@ -1019,15 +762,14 @@ const week1Tasks = [
 ];
 
 // Combine all tasks
-const defaultTasks = [...milestone2Tasks, ...week2Tasks, ...week1Tasks];
+const defaultTasks = [...week2Tasks, ...week1Tasks];
 
 // STATE
 let tasks = [];
 let currentFilter = 'all';
 let editingTaskId = null;
 let week1Collapsed = true;
-let week2Collapsed = true;
-let milestone2Collapsed = false;
+let week2Collapsed = false;
 
 // DOM Elements
 const taskModal = document.getElementById('taskModal');
@@ -1144,12 +886,6 @@ function toggleWeek(weekNum) {
 }
 window.toggleWeek = toggleWeek;
 
-function toggleMilestone2() {
-    milestone2Collapsed = !milestone2Collapsed;
-    renderTasks();
-}
-window.toggleMilestone2 = toggleMilestone2;
-
 function handleFormSubmit(e) {
     e.preventDefault();
     const rawDesc = document.getElementById('taskDescription').value;
@@ -1173,46 +909,20 @@ function handleFormSubmit(e) {
 
 // RENDER
 function renderTasks() {
-    const milestone2 = tasks.filter(t => t.id >= 300 && t.id < 400);
     const week2 = tasks.filter(t => t.id >= 200 && t.id < 300);
     const week1 = tasks.filter(t => t.id >= 100 && t.id < 200);
 
-    // Calculate Week 2 completion
-    const week2Completed = week2.filter(t => t.status === 'completed').length;
-    const week2Total = week2.length;
-    const week2AllDone = week2Completed === week2Total;
-
     let html = `
-    <!-- MILESTONE 2: Backend Auth & Search (Weeks 3-4) -->
-    <div class="milestone-header" style="margin-top: 0;">
-        <h2>🎯 Milestone 2: Backend Auth & RBAC Search (Weeks 3-4)</h2>
-        <span class="milestone-badge active">🔵 Current</span>
-    </div>
-
-    <div class="week-section">
-        <div class="week-header" onclick="toggleMilestone2()">
-            <span class="week-toggle">${milestone2Collapsed ? '▶' : '▼'}</span>
-            <h3>📅 Weeks 3-4: Vector Database & RBAC Search</h3>
-            <span class="week-status active">🔵 In Progress</span>
-            <span class="task-count">${milestone2.length} tasks</span>
-        </div>
-        <div class="week-tasks ${milestone2Collapsed ? 'collapsed' : ''}">
-            ${milestone2.map(task => createTaskHTML(task)).join('')}
-        </div>
-    </div>
-
-    <!-- MILESTONE 1: Data Preparation & Vector DB (Weeks 1-2) -->
-    <div class="milestone-header" style="margin-top: 2rem;">
+    <div class="milestone-header">
         <h2>🎯 Milestone 1: Data Preparation & Vector DB</h2>
-        <span class="milestone-badge ${week2AllDone ? 'completed' : 'in-progress'}">${week2AllDone ? '✅ Completed' : '🔵 ${week2Completed}/${week2Total} Done'}</span>
     </div>
 
-    <!-- WEEK 2 -->
-    <div class="week-section ${week2AllDone ? 'week-completed' : ''}">
+    <!-- WEEK 2 (Current - Open by default) -->
+    <div class="week-section">
         <div class="week-header" onclick="toggleWeek(2)">
             <span class="week-toggle">${week2Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 2: Document Preprocessing & Metadata Tagging</h3>
-            <span class="week-status ${week2AllDone ? 'completed' : 'active'}">${week2AllDone ? '✅ Completed' : '🔵 ' + week2Completed + '/' + week2Total + ' Done'}</span>
+            <span class="week-status active">🔵 In Progress</span>
             <span class="task-count">${week2.length} tasks</span>
         </div>
         <div class="week-tasks ${week2Collapsed ? 'collapsed' : ''}">
@@ -1243,18 +953,10 @@ function createTaskHTML(task) {
     const names = task.assignee.split(' ');
     const initials = names.map(n => n[0]).join('').substring(0, 2).toUpperCase();
     const priorityClass = `priority-${task.priority}`;
-    const statusClass = task.status === 'completed' ? 'status-completed' : (task.status === 'in-progress' ? 'status-in-progress' : 'status-pending');
-    const statusIcon = task.status === 'completed' ? '✅' : (task.status === 'in-progress' ? '🔄' : '⏳');
-    const statusText = task.status === 'completed' ? 'Completed' : (task.status === 'in-progress' ? 'In Progress' : 'Pending');
-    const difficultyBadge = task.difficulty ? `<span class="difficulty-badge difficulty-${task.difficulty}">${task.difficulty.toUpperCase()}</span>` : '';
 
     return `
-    <div class="task-card ${priorityClass} ${statusClass}">
+    <div class="task-card ${priorityClass}">
         <div class="task-header">
-            <div class="task-status-badge ${statusClass}">
-                ${statusIcon} ${statusText}
-            </div>
-            ${difficultyBadge}
             <div style="flex-grow:1"></div>
             <div class="task-actions">
                 <button onclick="editTask(${task.id})" class="btn-icon" title="Edit">✏️</button>
