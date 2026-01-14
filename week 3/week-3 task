@@ -1,0 +1,97 @@
+import os
+import json
+from vector_db_setup import get_collection
+
+# -------------------------------
+# Paths
+# -------------------------------
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+EMBEDDINGS_FILE = os.path.join(BASE_DIR, "output", "chunk_embeddings.json")
+TAGGED_CHUNKS_FILE = os.path.join(BASE_DIR, "..", "week 2", "output", "tagged_chunks.json")
+
+BATCH_SIZE = 100
+
+# -------------------------------
+# Load Data
+# -------------------------------
+def load_json(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"File not found: {path}")
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+print("📥 Loading embeddings...")
+embeddings_data = load_json(EMBEDDINGS_FILE)
+
+print("📥 Loading tagged metadata...")
+tagged_chunks = load_json(TAGGED_CHUNKS_FILE)
+
+# Create quick lookup for metadata
+tagged_lookup = {chunk["chunk_id"]: chunk for chunk in tagged_chunks}
+
+# -------------------------------
+# Initialize ChromaDB Collection
+# -------------------------------
+collection = get_collection()
+print("✅ ChromaDB collection initialized")
+
+# -------------------------------
+# Indexing Logic
+# -------------------------------
+ids, embeddings, documents, metadatas = [], [], [], []
+total_indexed = 0
+batch_count = 0
+
+print("\n🚀 Starting indexing process...\n")
+
+for item in embeddings_data:
+    chunk_id = item["chunk_id"]
+
+    if chunk_id not in tagged_lookup:
+        print(f"⚠️ Metadata missing for {chunk_id}, skipping...")
+        continue
+
+    metadata = tagged_lookup[chunk_id]
+
+    ids.append(chunk_id)
+    embeddings.append(item["embedding"])
+    documents.append(item["content"])
+    metadatas.append({
+        "department": metadata.get("department"),
+        "accessible_roles": metadata.get("accessible_roles"),
+        "source": metadata.get("source_file")
+    })
+
+    if len(ids) == BATCH_SIZE:
+        collection.add(
+            ids=ids,
+            embeddings=embeddings,
+            documents=documents,
+            metadatas=metadatas
+        )
+        batch_count += 1
+        total_indexed += len(ids)
+        print(f"✅ Indexed batch {batch_count}")
+
+        ids, embeddings, documents, metadatas = [], [], [], []
+
+# Index remaining items
+if ids:
+    collection.add(
+        ids=ids,
+        embeddings=embeddings,
+        documents=documents,
+        metadatas=metadatas
+    )
+    batch_count += 1
+    total_indexed += len(ids)
+    print(f"✅ Indexed batch {batch_count}")
+
+# -------------------------------
+# Summary
+# -------------------------------
+print("\n" + "=" * 50)
+print("📊 INDEXING SUMMARY")
+print("=" * 50)
+print(f"Total documents indexed: {total_indexed}")
+print("🎉 SUCCESS: All embeddings indexed with metadata in ChromaDB")
