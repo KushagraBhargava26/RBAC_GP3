@@ -21,6 +21,7 @@ const week4Tasks = [
         title: 'Build RBAC Filtering Logic for Document Access',
         assignee: 'Arshad Pasha',
         priority: 'high',
+        status: 'completed',
         description: `<strong>Goal:</strong> Implement role-based access control filtering.<br><br>
 1. Build RBAC filtering module for vector search.<br>
 2. Implement role hierarchy: C-Level > Department > Employee.<br>
@@ -112,6 +113,7 @@ git push origin arshad/week4</code></pre>
         title: 'Query Preprocessing & Normalization',
         assignee: 'Kushagra Bhargava',
         priority: 'medium',
+        status: 'completed',
         description: `<strong>Goal:</strong> Preprocess user queries before search.<br><br>
 1. Normalize incoming queries (lowercase, remove special chars).<br>
 2. Extract keywords and entities.<br>
@@ -194,6 +196,7 @@ git push origin bhargava/week4</code></pre>
         title: 'Relevant Chunk Selection Algorithm',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
+        status: 'in-progress',
         description: `<strong>Goal:</strong> Select most relevant chunks for each query.<br><br>
 1. Implement similarity scoring with thresholds.<br>
 2. Rank chunks by relevance score.<br>
@@ -263,6 +266,7 @@ git push origin karthik/week4</code></pre>
         title: 'Role Permission Validation & Testing',
         assignee: 'Kavya Ghantasala',
         priority: 'high',
+        status: 'in-progress',
         description: `<strong>Goal:</strong> Test and validate role-based access.<br><br>
 1. Create test cases for each role.<br>
 2. Verify Finance cannot access HR docs.<br>
@@ -337,6 +341,7 @@ git push origin kavya/week4</code></pre>
         title: 'Integrate Search Pipeline Components',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
+        status: 'in-progress',
         description: `<strong>Goal:</strong> Combine all search components into pipeline.<br><br>
 1. Integrate query processor → embedding → search → RBAC filter.<br>
 2. Create unified search interface.<br>
@@ -402,6 +407,7 @@ git push origin shirisha/week4</code></pre>
         title: 'Role Configuration & Hierarchy Documentation',
         assignee: 'Sri Saranya Chandrapati',
         priority: 'medium',
+        status: 'completed',
         description: `<strong>Goal:</strong> Document complete RBAC configuration.<br><br>
 1. Document role hierarchy with diagrams.<br>
 2. Create permission matrix table.<br>
@@ -473,6 +479,7 @@ git push origin saranya/week4</code></pre>
         title: 'Search Quality & Performance Benchmarking',
         assignee: 'Vinuthna Jangam',
         priority: 'medium',
+        status: 'completed',
         description: `<strong>Goal:</strong> Test search quality and performance.<br><br>
 1. Create benchmark queries for each role.<br>
 2. Measure retrieval latency.<br>
@@ -554,6 +561,7 @@ git push origin vinuthna/week4</code></pre>
         title: 'Week 4 Summary Report',
         assignee: 'Depuru Joshika Reddy',
         priority: 'low',
+        status: 'completed',
         description: `<strong>Goal:</strong> Compile the Week 4 summary.<br><br>
 1. Collect all deliverables from team.<br>
 2. Summarize RBAC implementation.<br>
@@ -639,6 +647,7 @@ const week3Tasks = [
         title: 'Generate Vector Embeddings for All Chunks',
         assignee: 'Arshad Pasha',
         priority: 'high',
+        status: 'completed',
         description: `<strong>Goal:</strong> Generate embeddings for all document chunks.<br><br>
 1. Load chunked documents from Week 2.<br>
 2. Initialize sentence-transformers model (all-MiniLM-L6-v2).<br>
@@ -717,6 +726,7 @@ git push origin arshad/week3</code></pre>
         title: 'Initialize Vector Database (Chroma)',
         assignee: 'Kushagra Bhargava',
         priority: 'high',
+        status: 'completed',
         description: `<strong>Goal:</strong> Set up ChromaDB for vector storage.<br><br>
 1. Install and configure ChromaDB.<br>
 2. Create collection with proper schema.<br>
@@ -794,6 +804,7 @@ git push origin bhargava/week3</code></pre>
         title: 'Index Embeddings into Vector Database',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'high',
+        status: 'completed',
         description: `<strong>Goal:</strong> Load embeddings into ChromaDB.<br><br>
 1. Load embeddings from Arshad's output.<br>
 2. Load tagged chunks from Week 2.<br>
@@ -863,6 +874,7 @@ git push origin karthik/week3</code></pre>
         title: 'Implement Semantic Search Functionality',
         assignee: 'Kavya Ghantasala',
         priority: 'high',
+        status: 'completed',
         description: `<strong>Goal:</strong> Build the core search interface.<br><br>
 1. Create search function using embeddings.<br>
 2. Query vector database.<br>
@@ -930,6 +942,7 @@ git push origin kavya/week3</code></pre>
         title: 'Search Quality Testing & Validation',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
+        status: 'completed',
         description: `<strong>Goal:</strong> Test search functionality quality.<br><br>
 1. Create test queries for each department.<br>
 2. Validate relevance of results.<br>
@@ -1006,6 +1019,7 @@ git push origin shirisha/week3</code></pre>
         title: 'Vector Database Architecture Documentation',
         assignee: 'Sri Saranya Chandrapati',
         priority: 'medium',
+        status: 'completed',
         description: `<strong>Goal:</strong> Document the vector database setup.<br><br>
 1. Document embedding model choice.<br>
 2. Create architecture diagram.<br>
@@ -1081,6 +1095,7 @@ git push origin saranya/week3</code></pre>
         title: 'Embedding & Search Performance Benchmarking',
         assignee: 'Vinuthna Jangam',
         priority: 'medium',
+        status: 'completed',
         description: `<strong>Goal:</strong> Benchmark embedding and search performance.<br><br>
 1. Measure embedding generation time.<br>
 2. Measure search latency.<br>
@@ -1152,6 +1167,7 @@ git push origin vinuthna/week3</code></pre>
         title: 'Week 3 Summary Report',
         assignee: 'Depuru Joshika Reddy',
         priority: 'low',
+        status: 'completed',
         description: `<strong>Goal:</strong> Compile the Week 3 summary.<br><br>
 1. Collect all deliverables.<br>
 2. Summarize vector DB implementation.<br>
@@ -1981,8 +1997,8 @@ let currentFilter = 'all';
 let editingTaskId = null;
 let week1Collapsed = true;
 let week2Collapsed = true;
-let week3Collapsed = false;
-let week4Collapsed = true;
+let week3Collapsed = true;
+let week4Collapsed = false;
 
 // DOM Elements
 const taskModal = document.getElementById('taskModal');
@@ -2139,12 +2155,12 @@ function renderTasks() {
         <h2>🎯 Milestone 2: Backend Auth & Search (Weeks 3-4)</h2>
     </div>
 
-    <!-- WEEK 3 (Current - Open by default) -->
-    <div class="week-section">
+    <!-- WEEK 3 (Completed) -->
+    <div class="week-section week-completed">
         <div class="week-header" onclick="toggleWeek(3)">
             <span class="week-toggle">${week3Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 3: Vector Database & Embedding Generation</h3>
-            <span class="week-status active">🔵 In Progress</span>
+            <span class="week-status completed">✅ Completed</span>
             <span class="task-count">${week3.length} tasks</span>
         </div>
         <div class="week-tasks ${week3Collapsed ? 'collapsed' : ''}">
@@ -2152,12 +2168,12 @@ function renderTasks() {
         </div>
     </div>
 
-    <!-- WEEK 4 (Upcoming) -->
+    <!-- WEEK 4 (In Progress - Current) -->
     <div class="week-section">
         <div class="week-header" onclick="toggleWeek(4)">
             <span class="week-toggle">${week4Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 4: Role-Based Search & Query Processing</h3>
-            <span class="week-status" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.4);">⏳ Upcoming</span>
+            <span class="week-status active">🔵 In Progress</span>
             <span class="task-count">${week4.length} tasks</span>
         </div>
         <div class="week-tasks ${week4Collapsed ? 'collapsed' : ''}">
@@ -2207,10 +2223,18 @@ function createTaskHTML(task) {
     const initials = names.map(n => n[0]).join('').substring(0, 2).toUpperCase();
     const priorityClass = `priority-${task.priority}`;
 
+    // Determine status badge
+    let statusBadge = '';
+    if (task.status === 'completed') {
+        statusBadge = `<span style="background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(34, 197, 94, 0.4);">✅ Completed</span>`;
+    } else if (task.status === 'in-progress') {
+        statusBadge = `<span style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.4);">🔵 In Progress</span>`;
+    }
+
     return `
     <div class="task-card ${priorityClass}">
         <div class="task-header">
-            <div style="flex-grow:1"></div>
+            <div style="flex-grow:1">${statusBadge}</div>
             <div class="task-actions">
                 <button onclick="editTask(${task.id})" class="btn-icon" title="Edit">✏️</button>
                 <button onclick="deleteTask(${task.id})" class="btn-icon delete" title="Delete">🗑️</button>
