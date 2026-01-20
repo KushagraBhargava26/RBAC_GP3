@@ -1,0 +1,8 @@
+{
+  "endpoints": {
+    "/query/finance": ["finance", "c-level"],
+    "/query/hr": ["hr", "c-level"],
+    "/query/marketing": ["marketing", "c-level"],
+    "/query/general": ["employees", "finance", "hr", "marketing", "engineering", "c-level"]
+  }
+}
