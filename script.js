@@ -1,5 +1,106 @@
 // RBAC Group 3 - Team Planning Dashboard JavaScript
 
+// MASTER GUIDE LOGIC
+function openMasterGuide() {
+    const modal = document.getElementById('masterGuideModal');
+    const textarea = document.getElementById('guideContent');
+
+    // Generate text if empty
+    if (!textarea.value) {
+        textarea.value = generateMasterSummary();
+    }
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeMasterGuide() {
+    document.getElementById('masterGuideModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function copyMasterGuide() {
+    const textarea = document.getElementById('guideContent');
+    const btn = document.getElementById('copyGuideBtn');
+
+    textarea.select();
+    document.execCommand('copy');
+
+    // Visual Feedback
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '✅ Copied!';
+    btn.style.background = '#22c55e';
+
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '#2563eb';
+    }, 2000);
+}
+
+function generateMasterSummary() {
+    // Data Sources (Assuming tasks.js is loaded and these variables exist)
+    const allWeeks = [
+        { name: 'Week 1: Environment Setup & Data Exploration', tasks: typeof week1Tasks !== 'undefined' ? week1Tasks : [] },
+        { name: 'Week 2: Document Preprocessing & Metadata Tagging', tasks: typeof week2Tasks !== 'undefined' ? week2Tasks : [] },
+        { name: 'Week 3: Vector Database & Embedding Generation', tasks: typeof week3Tasks !== 'undefined' ? week3Tasks : [] },
+        { name: 'Week 4: Role-Based Search & Query Processing', tasks: typeof week4Tasks !== 'undefined' ? week4Tasks : [] },
+        { name: 'Week 5: User Authentication & RBAC Middleware', tasks: typeof week5Tasks !== 'undefined' ? week5Tasks : [] },
+        { name: 'Week 6: RAG Pipeline & LLM Integration', tasks: typeof week6Tasks !== 'undefined' ? week6Tasks : [] },
+        { name: 'Week 7: Premium Next.js Frontend Development', tasks: typeof week7Tasks !== 'undefined' ? week7Tasks : [] },
+        { name: 'Week 8: System Integration, Testing & Deployment', tasks: typeof week8Tasks !== 'undefined' ? week8Tasks : [] }
+    ];
+
+    let summary = `RBAC GROUP 3 - MASTER PROJECT GUIDE
+========================================
+Project: Company Internal Chatbot with Role-Based Access Control (RBAC)
+Team Lead: Arshad Pasha
+Generated: ${new Date().toLocaleDateString()}
+
+INTRODUCTION
+----------------------------------------
+This document provides a comprehensive, week-by-week execution plan for the RBAC Chatbot project. It details every task, technical approach, code snippet, and design decision made from inception to deployment.
+
+OBJECTIVE
+----------------------------------------
+To build a secure, retrieval-augmented generation (RAG) chatbot that serves department-specific information to employees based on their verified roles (Finance, HR, Engineering, etc.), ensuring strict data privacy and access control.
+
+========================================
+TIMELINE & EXECUTION LOG
+========================================
+
+`;
+
+    allWeeks.forEach(week => {
+        summary += `\n----------------------------------------\n${week.name.toUpperCase()}\n----------------------------------------\n`;
+
+        if (week.tasks.length === 0) {
+            summary += "(No tasks defined for this week yet.)\n";
+        }
+
+        week.tasks.forEach(task => {
+            // Clean up HTML tags for plain text
+            const simpleDesc = task.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+            const complexDesc = task.deepExplanation ? task.deepExplanation.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/\n\s+\n/g, '\n').trim() : 'No deep explanation provided.';
+
+            summary += `\n[TASK ${task.id}] ${task.title.toUpperCase()}`;
+            summary += `\nAssignee: ${task.assignee} | Priority: ${task.priority.toUpperCase()}`;
+            summary += `\n\nGOAL:\n${simpleDesc}`;
+            summary += `\n\nDETAILED PROTOCOL:\n${complexDesc}`;
+            summary += `\n\n` + ".".repeat(40) + `\n`;
+        });
+    });
+
+    summary += `\n\n========================================\nEND OF MASTER GUIDE\nRBAC Group 3 | Infosys Springboard Internship`;
+
+    return summary;
+}
+
+// Global scope
+window.openMasterGuide = openMasterGuide;
+window.closeMasterGuide = closeMasterGuide;
+window.copyMasterGuide = copyMasterGuide;
+
+// INITIALIZE
 document.addEventListener('DOMContentLoaded', function () {
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');

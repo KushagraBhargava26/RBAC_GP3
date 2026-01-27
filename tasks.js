@@ -3573,9 +3573,12 @@ const deepModal = document.getElementById('deepExplanationModal');
 
 // INITIALIZE
 document.addEventListener('DOMContentLoaded', function () {
-    loadTasks();
-    setupEventListeners();
-    setupNavigation();
+    // Only run task management logic if the container exists (i.e., we are on tasks.html)
+    if (document.getElementById('tasksContainer')) {
+        loadTasks();
+        setupEventListeners();
+        setupNavigation();
+    }
 });
 
 function loadTasks() {
