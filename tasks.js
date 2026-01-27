@@ -1,6 +1,6 @@
 // Milestone 1: Data Preparation & Vector DB (Weeks 1-2) ✅ COMPLETED
 // Milestone 2: Backend Auth & Search (Weeks 3-4) ✅ COMPLETED
-// Milestone 3: RAG Pipeline & LLM (Weeks 5-6) ✅ COMPLETED
+// Milestone 4: Frontend & Deployment (Weeks 7-8) ⏳ NOT STARTED
 // ---------------------------------------------------------
 
 // Team Members
@@ -8,6 +8,437 @@ const teamMembers = [
     'Arshad Pasha', 'Depuru Joshika Reddy', 'Guru Karthik Reddy Marthala',
     'Kavya Ghantasala', 'Kushagra Bhargava', 'Mandha Shirisha',
     'Sri Saranya Chandrapati', 'Vinuthna Jangam'
+];
+
+// =====================================================
+// WEEK 8 TASKS (Module 8: System Integration & Deployment)
+// =====================================================
+const week8Tasks = [
+    // 1. Arshad (LEAD) - Backend Deployment
+    {
+        id: 801,
+        title: 'Deploy FastAPI Backend to Render',
+        assignee: 'Arshad Pasha',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Deploy the Python backend to the cloud.<br><br>
+1. Prepare requirements.txt and runtime.txt.<br>
+2. Configure Render.com web service.<br>
+3. Set up environment variables (Prod).<br>
+4. Verify API endpoints in production.<br><br>
+<strong>📌 Output:</strong> Live Backend URL (e.g., https://rbac-api.onrender.com)`,
+        deepExplanation: `
+<h3>🚀 Backend Deployment Guide</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ LEAD TASK - The foundation for live access!</p>
+<hr>
+<h4>🔹 STEP 1: Prepare for Deployment</h4>
+<p>Create <code>runtime.txt</code> in root:</p>
+<pre><code>python-3.9.18</code></pre>
+<p>Ensure <code>requirements.txt</code> has <code>uvicorn</code> and <code>gunicorn</code>.</p>
+
+<h4>🔹 STEP 2: Push to GitHub</h4>
+<pre><code>git checkout main
+git push origin main</code></pre>
+
+<h4>🔹 STEP 3: Deploy on Render</h4>
+1. Go to dashboard.render.com
+2. New + -> Web Service
+3. Connect GitHub Repo
+4. <strong>Build Command:</strong> <code>pip install -r requirements.txt</code>
+5. <strong>Start Command:</strong> <code>uvicorn main:app --host 0.0.0.0 --port 10000</code>
+6. Add Environment Variables (OPENAI_KEY, SECRET_KEY, etc.)
+
+<h4>🔹 STEP 4: Verification</h4>
+Test <code>/docs</code> on the live URL.
+`
+    },
+
+    // 2. Bhargava (HARD) - Frontend Deployment
+    {
+        id: 802,
+        title: 'Deploy Next.js Frontend to Vercel',
+        assignee: 'Kushagra Bhargava',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Deploy the UI to Vercel global CDN.<br><br>
+1. Configure Vercel project.<br>
+2. Connect to GitHub repository.<br>
+3. Set up production ENV variables.<br>
+4. Fix build errors and optimize assets.<br><br>
+<strong>📌 Output:</strong> Live Frontend URL (e.g., https://rbac-chatbot.vercel.app)`,
+        deepExplanation: `
+<h3>🚀 Frontend Deployment Guide</h3>
+<p style="color: #fbbf24; font-weight: bold;">Make our beautiful UI live for the world!</p>
+<hr>
+<h4>🔹 STEP 1: Vercel Setup</h4>
+1. Go to vercel.com -> Add New -> Project
+2. Import the Git Repository
+3. Framework Preset: Next.js
+
+<h4>🔹 STEP 2: Environment Config</h4>
+Add the backend URL from Arshad's task:
+<pre><code>NEXT_PUBLIC_API_URL=https://your-backend.onrender.com</code></pre>
+
+<h4>🔹 STEP 3: Deploy</h4>
+Click <strong>Deploy</strong> and watch the build logs.
+Fix any TypeScript errors if the build fails.
+
+<hr>
+<p style="color: #22c55e;">✅ SUCCESS: App is running on the edge!</p>
+`
+    },
+
+    // 3. Kavya (HARD) - API Integration
+    {
+        id: 803,
+        title: 'Full Stack API Integration',
+        assignee: 'Kavya Ghantasala',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Connect Frontend Chat UI to Backend RAG.<br><br>
+1. Create API service layer in Next.js.<br>
+2. Connect Chat component to <code>/rag/query</code>.<br>
+3. Handle streaming responses (if implemented) or loading states.<br>
+4. Display real data from backend.<br><br>
+<strong>📌 Output:</strong> A working functional chatbot.`,
+        deepExplanation: `
+<h3>🔗 API Integration Logic</h3>
+<p>Connect the brain (Backend) to the face (Frontend).</p>
+<hr>
+<h4>🔹 React Query / Axios</h4>
+Use <strong>TanStack Query</strong> for caching and state management.
+
+<pre><code>// hooks/useChat.ts
+export const useChat = () => {
+  return useMutation({
+    mutationFn: async (message) => {
+      const response = await axios.post(
+        \`\${process.env.NEXT_PUBLIC_API_URL}/query\`,
+        { query: message }
+      );
+      return response.data;
+    }
+  });
+}</code></pre>
+`
+    },
+
+    // 4. Joshika (HARD) - Auth Integration
+    {
+        id: 804,
+        title: 'Authentication & Session Handling',
+        assignee: 'Depuru Joshika Reddy',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Secure the frontend with JWT.<br><br>
+1. Integrate Login form with <code>/auth/login</code>.<br>
+2. Store JWT securely (HttpOnly cookie or secure storage).<br>
+3. Create Protected Routes middleware.<br>
+4. Handle session expiration/logout.<br><br>
+<strong>📌 Output:</strong> Secure login flow working in production.`,
+        deepExplanation: `
+<h3>🔐 Auth Implementation</h3>
+<hr>
+<h4>🔹 JWT Handling</h4>
+Do not store sensitive tokens in localStorage if possible. Use cookies or memory.
+
+<h4>🔹 Protected Routes</h4>
+Create a wrapper component:
+<pre><code>const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user) return <Redirect to="/login" />;
+  return children;
+};</code></pre>
+`
+    },
+
+    // 5. Vinuthna (HARD) - Performance & Optimization
+    {
+        id: 805,
+        title: 'Performance Optimization & Lighthouse',
+        assignee: 'Vinuthna Jangam',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Make the app buttery smooth.<br><br>
+1. Optimize images (Next/Image).<br>
+2. Implement code splitting / lazy loading.<br>
+3. Run Google Lighthouse audit.<br>
+4. Achieve >90 performance score.<br><br>
+<strong>📌 Output:</strong> High-performance web app.`,
+        deepExplanation: `
+<h3>⚡ Speed Optimization</h3>
+<hr>
+<p><strong>Tasks:</strong></p>
+1. Use <code>next/image</code> for all assets.
+2. Implement <code>React.lazy()</code> for heavy components (charts, PDF viewers).
+3. Minimize main thread work.
+4. Verify with Chrome DevTools > Lighthouse.
+`
+    },
+
+    // 6. Shirisha (HARD) - E2E Testing
+    {
+        id: 806,
+        title: 'End-to-End System Testing',
+        assignee: 'Mandha Shirisha',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Verify the entire system workflow.<br><br>
+1. Test Finance User flow (Login -> Ask Finance Q -> Get Answer).<br>
+2. Test HR User flow.<br>
+3. Verify unauthorized access denial.<br>
+4. Report bugs to team.<br><br>
+<strong>📌 Output:</strong> Final Test Report (Pass/Fail).`,
+        deepExplanation: `
+<h3>🧪 Quality Assurance</h3>
+<hr>
+<p><strong>Test Scenarios:</strong></p>
+1. <strong>Happy Path:</strong> Login as Arshad (C-Level) -> Ask about anything -> Success.
+2. <strong>Security Path:</strong> Login as Intern -> Ask about CEO salary -> "Access Denied".
+3. <strong>Edge Case:</strong> Empty queries, network failure.
+`
+    },
+
+    // 7. Karthik (HARD) - Error Handling
+    {
+        id: 807,
+        title: 'Global Error Handling & Notifications',
+        assignee: 'Guru Karthik Reddy Marthala',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Add polish with user feedback.<br><br>
+1. Implement Toast notifications (Sonner/Hot Toast).<br>
+2. Create 404 and 500 Error pages.<br>
+3. Handle API timeout/failures gracefully.<br>
+4. Add Loading skeletons.<br><br>
+<strong>📌 Output:</strong> Robust UI that handles errors gracefully.`,
+        deepExplanation: `
+<h3>🔔 User Feedback System</h3>
+<hr>
+<p>Use <strong>Sonner</strong> for beautiful toasts.</p>
+<pre><code>toast.error('Failed to login. Please check credentials.');
+toast.success('Document processed successfully!');</code></pre>
+`
+    },
+
+    // 8. Saranya (HARD) - Documentation
+    {
+        id: 808,
+        title: 'Final System Documentation & Demo',
+        assignee: 'Sri Saranya Chandrapati',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Prepare for project submission.<br><br>
+1. Create valid README.md with setup instructions.<br>
+2. Record Walkthrough Demo Video.<br>
+3. Document API endpoints and UI features.<br>
+4. Finalize GitHub repo.<br><br>
+<strong>📌 Output:</strong> Complete Project Package.`,
+        deepExplanation: `
+<h3>📚 Final Deliverables</h3>
+<hr>
+1. <strong>README.md:</strong> Badges, Screenshots, Setup Guide.
+2. <strong>Demo Video:</strong> 3-5 minute loom/recording showing:
+   - Login
+   - Role switching
+   - RAG response
+   - Citation check
+`
+    }
+];
+
+// =====================================================
+// WEEK 7 TASKS (Module 7: Premium Next.js Frontend)
+// =====================================================
+const week7Tasks = [
+    // 1. Arshad (LEAD) - Project Setup
+    {
+        id: 701,
+        title: 'Initialize Next.js 14 + Shadcn/UI Project',
+        assignee: 'Arshad Pasha',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Create the foundation for Premium UI.<br><br>
+1. Initialize Next.js App Router (TypeScript).<br>
+2. Install Tailwind CSS & Shadcn/UI.<br>
+3. Set up folder structure (components, lib, app).<br>
+4. Create global theme (Fonts, Colors).<br><br>
+<strong>📌 Output:</strong> Working Next.js repo ready for team.`,
+        deepExplanation: `
+<h3>📘 Lead Task: Project Initialization</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ FOUNDATION TASK - Do this first!</p>
+<hr>
+<h4>🔹 STEP 1: Create Project</h4>
+<pre><code>npx create-next-app@latest rbac-frontend --typescript --tailwind --eslint</code></pre>
+
+<h4>🔹 STEP 2: Install UI Library</h4>
+<pre><code>npx shadcn-ui@latest init</code></pre>
+Select <strong>Slate</strong> or <strong>Zinc</strong> color theme.
+
+<h4>🔹 STEP 3: Install Core Deps</h4>
+<pre><code>npm install framer-motion lucide-react axios clsx tailwind-merge</code></pre>
+
+<h4>🔹 STEP 4: Push to GitHub</h4>
+Create <code>rbac-frontend</code> repo and push.
+`
+    },
+
+    // 2. Bhargava (HARD) - Auth UI
+    {
+        id: 702,
+        title: 'Design Premium Login & Register Pages',
+        assignee: 'Kushagra Bhargava',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Create a "Wow" factor login screen.<br><br>
+1. Use Glassmorphism effects.<br>
+2. Add background animations (particles/gradients).<br>
+3. Build Login/Signup forms with validation.<br>
+4. Ensure mobile responsiveness.<br><br>
+<strong>📌 Output:</strong> /login and /register pages.`,
+        deepExplanation: `
+<h3>🎨 Premium Auth Design</h3>
+<hr>
+<p><strong>Design Tips:</strong></p>
+- Use a dark rich background with a glowing gradient mesh.
+- Make the login card translucent (glass effect).
+- Use <strong>Framer Motion</strong> for the card to slide up on load.
+`
+    },
+
+    // 3. Kavya (HARD) - Chat Interface
+    {
+        id: 703,
+        title: 'Build Interactive Chat Interface',
+        assignee: 'Kavya Ghantasala',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Build a ChatGPT-like experience.<br><br>
+1. Message Bubble components (User/Bot styles).<br>
+2. Typing indicators (animated dots).<br>
+3. Auto-scroll to bottom.<br>
+4. Markdown rendering for bot responses.<br><br>
+<strong>📌 Output:</strong> Main Chat Component.`,
+        deepExplanation: `
+<h3>💬 Chat UI Components</h3>
+<hr>
+- Use <strong>react-markdown</strong> to render bold text, lists, and code blocks from the bot.
+- Differentiate User (Right, Blue) and Bot (Left, Gray) messages.
+- Add "Copy to Clipboard" button for code blocks.
+`
+    },
+
+    // 4. Joshika (HARD) - Sidebar Navigation
+    {
+        id: 704,
+        title: 'Dynamic Role-Based Sidebar',
+        assignee: 'Depuru Joshika Reddy',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Navigation that adapts to the user.<br><br>
+1. Create collapsible sidebar.<br>
+2. Show User Profile section (Avatar + Name).<br>
+3. Display Role Badge (e.g., "Finance Team").<br>
+4. List accessible document categories.<br><br>
+<strong>📌 Output:</strong> Sidebar Component.`,
+        deepExplanation: `
+<h3>🧭 Smart Navigation</h3>
+<hr>
+- If user role is "Finance", show 💰 Finance Icon.
+- If user role is "HR", show 👥 HR Icon.
+- Use <strong>Lucide React</strong> icons.
+- Add a "Logout" button at the bottom.
+`
+    },
+
+    // 5. Vinuthna (HARD) - Dashboard Widgets
+    {
+        id: 705,
+        title: 'Analytics Dashboard Widgets',
+        assignee: 'Vinuthna Jangam',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Visual data for C-Level users.<br><br>
+1. Integrate Recharts library.<br>
+2. Create "Documents Indexed" chart.<br>
+3. Create "Recent Queries" list.<br>
+4. Create "System Health" status cards.<br><br>
+<strong>📌 Output:</strong> Dashboard Page components.`,
+        deepExplanation: `
+<h3>📊 Data Visualization</h3>
+<hr>
+- Create a grid layout for widgets.
+- Use a Line Chart for "Queries over time".
+- Use Pie Chart for "Document breakdown by Department".
+- Make them animate on load.
+`
+    },
+
+    // 6. Shirisha (HARD) - Document Browser
+    {
+        id: 706,
+        title: 'Document Source Browser UI',
+        assignee: 'Mandha Shirisha',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Interface to view knowledge base.<br><br>
+1. Create Grid/List view of documents.<br>
+2. Implement Search/Filter by department.<br>
+3. Add "View Content" modal.<br>
+4. Show metadata tags.<br><br>
+<strong>📌 Output:</strong> Knowledge Base page.`,
+        deepExplanation: `
+<h3>📂 Document Explorer</h3>
+<hr>
+- Display documents as cards with icons (PDF/CSV).
+- Add a "Search Documents" input bar.
+- Clicking a document should open a slide-over panel with details.
+`
+    },
+
+    // 7. Karthik (HARD) - User Settings
+    {
+        id: 707,
+        title: 'User Settings & Profile UI',
+        assignee: 'Guru Karthik Reddy Marthala',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Personalization options.<br><br>
+1. Dark/Light mode toggle (using next-themes).<br>
+2. Profile update form.<br>
+3. Notification preferences.<br>
+4. Change password UI.<br><br>
+<strong>📌 Output:</strong> Settings Page.`,
+        deepExplanation: `
+<h3>⚙️ Settings & Preferences</h3>
+<hr>
+- Use <strong>Shadcn Tabs</strong> to switch sections (Account, Appearance, Security).
+- Implement the Theme Toggle with sun/moon icons.
+`
+    },
+
+    // 8. Saranya (HARD) - Citation UI
+    {
+        id: 708,
+        title: 'Source Attribution & Citation UI',
+        assignee: 'Sri Saranya Chandrapati',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Make RAG transparent.<br><br>
+1. Design citation badges (e.g., [1]).<br>
+2. Create hover popovers showing source excerpt.<br>
+3. Create "Sources Used" card below answer.<br>
+4. Ensure clean typography.<br><br>
+<strong>📌 Output:</strong> Citation Components.`,
+        deepExplanation: `
+<h3>📖 Citation UX</h3>
+<hr>
+- When the bot says "Revenue is up [1]", hovering [1] should show:
+  > "Source: Q3 Report.pdf (Page 4)"
+  > "extract text..."
+- Use <strong>Shadcn HoverCard</strong>.
+`
+    }
 ];
 
 // =====================================================
@@ -3072,8 +3503,8 @@ const week1Tasks = [
     }
 ];
 
-// Combine all tasks (Milestone 3 first, then Milestone 2, then Milestone 1)
-const defaultTasks = [...week6Tasks, ...week5Tasks, ...week4Tasks, ...week3Tasks, ...week2Tasks, ...week1Tasks];
+// Combine all tasks (Milestone 4, then 3, then 2, then 1)
+const defaultTasks = [...week8Tasks, ...week7Tasks, ...week6Tasks, ...week5Tasks, ...week4Tasks, ...week3Tasks, ...week2Tasks, ...week1Tasks];
 
 // STATE
 let tasks = [];
@@ -3085,6 +3516,8 @@ let week3Collapsed = true;
 let week4Collapsed = true;
 let week5Collapsed = true;
 let week6Collapsed = true;
+let week7Collapsed = false; // Expanded by default
+let week8Collapsed = false; // Expanded by default
 
 // DOM Elements
 const taskModal = document.getElementById('taskModal');
@@ -3106,7 +3539,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    const stored = localStorage.getItem('rbac_tasks_milestone3_v2');
+    const stored = localStorage.getItem('rbac_tasks_milestone4_v3');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -3118,20 +3551,21 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone3_v2', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone4_v3', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
 
 function seedDatabase() {
-    if (confirm("Reload ALL tasks with Milestone 3 (Weeks 5-6)? This resets all changes.")) {
-        // Clear old localStorage
+    if (confirm("Reload ALL tasks with Milestone 4 (Weeks 7-8)? This resets all changes.")) {
+        // Clear old localStorage keys
         localStorage.removeItem('rbac_tasks_milestone1_v3');
         localStorage.removeItem('rbac_tasks_milestone2_v1');
         localStorage.removeItem('rbac_tasks_milestone3_v1');
+        localStorage.removeItem('rbac_tasks_milestone3_v2');
         tasks = [...defaultTasks];
         saveTasks();
-        alert("Tasks reloaded with all 3 Milestones (Weeks 1-6)!");
+        alert("Tasks reloaded with all 4 Milestones (Weeks 1-8)!");
     }
 }
 window.seedDatabase = seedDatabase;
@@ -3208,6 +3642,10 @@ function toggleWeek(weekNum) {
         week5Collapsed = !week5Collapsed;
     } else if (weekNum === 6) {
         week6Collapsed = !week6Collapsed;
+    } else if (weekNum === 7) {
+        week7Collapsed = !week7Collapsed;
+    } else if (weekNum === 8) {
+        week8Collapsed = !week8Collapsed;
     }
     renderTasks();
 }
@@ -3236,6 +3674,8 @@ function handleFormSubmit(e) {
 
 // RENDER
 function renderTasks() {
+    const week8 = tasks.filter(t => t.id >= 800 && t.id < 900);
+    const week7 = tasks.filter(t => t.id >= 700 && t.id < 800);
     const week6 = tasks.filter(t => t.id >= 600 && t.id < 700);
     const week5 = tasks.filter(t => t.id >= 500 && t.id < 600);
     const week4 = tasks.filter(t => t.id >= 400 && t.id < 500);
@@ -3244,10 +3684,42 @@ function renderTasks() {
     const week1 = tasks.filter(t => t.id >= 100 && t.id < 200);
 
     let html = `
+    <!-- MILESTONE 4: Frontend & Deployment (Not Started) -->
+    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(100, 116, 139, 0.1)); border-color: rgba(148, 163, 184, 0.3);">
+        <h2 style="color: #94a3b8;">⏳ Milestone 4: Frontend & Deployment (Weeks 7-8) - NOT STARTED</h2>
+    </div>
+
+    <!-- WEEK 8 (Not Started) -->
+    <div class="week-section">
+        <div class="week-header" onclick="toggleWeek(8)">
+            <span class="week-toggle">${week8Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 8: System Integration, Testing & Deployment</h3>
+            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+            <span class="task-count">${week8.length} tasks</span>
+        </div>
+        <div class="week-tasks ${week8Collapsed ? 'collapsed' : ''}">
+            ${week8.map(task => createTaskHTML(task)).join('')}
+        </div>
+    </div>
+
+    <!-- WEEK 7 (Not Started) -->
+    <div class="week-section">
+        <div class="week-header" onclick="toggleWeek(7)">
+            <span class="week-toggle">${week7Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 7: Premium Next.js Frontend Development</h3>
+            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+            <span class="task-count">${week7.length} tasks</span>
+        </div>
+        <div class="week-tasks ${week7Collapsed ? 'collapsed' : ''}">
+            ${week7.map(task => createTaskHTML(task)).join('')}
+        </div>
+    </div>
+
     <!-- MILESTONE 3: RAG Pipeline & LLM (Completed) -->
-    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.1)); border-color: rgba(34, 197, 94, 0.3);">
+    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.1)); border-color: rgba(34, 197, 94, 0.3); margin-top: 3rem;">
         <h2 style="color: #22c55e;">✅ Milestone 3: RAG Pipeline & LLM (Weeks 5-6) - COMPLETED</h2>
     </div>
+
 
     <!-- WEEK 6 (Completed) -->
     <div class="week-section week-completed">
