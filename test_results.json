@@ -1,0 +1,62 @@
+[
+    {
+        "query": "What are the quarterly financial results?",
+        "role": "Finance",
+        "latency": 4.0531158447265625e-06,
+        "result": "pass"
+    },
+    {
+        "query": "Can I see the HR data?",
+        "role": "HR",
+        "latency": 2.86102294921875e-06,
+        "result": "pass"
+    },
+    {
+        "query": "What is the market report for Q1 2024?",
+        "role": "Marketing",
+        "latency": 9.5367431640625e-07,
+        "result": "pass"
+    },
+    {
+        "query": "Where is the engineering master document?",
+        "role": "Engineering",
+        "latency": 7.152557373046875e-07,
+        "result": "pass"
+    },
+    {
+        "query": "What is the marketing report for Q4 2024?",
+        "role": "Finance",
+        "latency": 7.152557373046875e-07,
+        "result": "pass"
+    },
+    {
+        "query": "What is the financial summary?",
+        "role": "HR",
+        "latency": 9.5367431640625e-07,
+        "result": "pass"
+    },
+    {
+        "query": "What is the employee handbook?",
+        "role": "Marketing",
+        "latency": 7.152557373046875e-07,
+        "result": "pass"
+    },
+    {
+        "query": "What is the search benchmark report?",
+        "role": "Engineering",
+        "latency": 7.152557373046875e-07,
+        "result": "pass"
+    },
+    {
+        "query": "What is the marketing report for Q3 2024?",
+        "role": "Finance",
+        "latency": 7.152557373046875e-07,
+        "result": "pass"
+    },
+    {
+        "query": "What is the role hierarchy?",
+        "role": "HR",
+        "latency": 7.152557373046875e-07,
+        "result": "pass"
+    }
+]
