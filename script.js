@@ -106,6 +106,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.querySelector('.nav-links');
 
+    // EXPLICITLY HIDE POPUP ON LOAD (Fix for auto-open issue)
+    const modal = document.getElementById('masterGuideModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+
     if (navToggle) {
         navToggle.addEventListener('click', function () {
             navLinks.classList.toggle('active');
