@@ -278,7 +278,18 @@ Select <strong>Slate</strong> or <strong>Zinc</strong> color theme.
 <h4>🔹 STEP 3: Install Core Deps</h4>
 <pre><code>npm install framer-motion lucide-react axios clsx tailwind-merge</code></pre>
 
-<h4>🔹 STEP 4: Push to GitHub</h4>
+<h4>🔹 STEP 4: Create Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+src/
+├── app/          (Next.js App Router)
+├── components/   (Reusable UI parts)
+│   ├── ui/       (Shadcn basic components: buttons, inputs)
+│   ├── premium/  (Custom complex components)
+├── lib/          (Utils, API clients)
+├── public/       (Images, fonts)
+</pre>
+
+<h4>🔹 STEP 5: Push to GitHub</h4>
 Create <code>rbac-frontend</code> repo and push.
 `
     },
@@ -291,18 +302,24 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Create a "Wow" factor login screen.<br><br>
-1. Use Glassmorphism effects.<br>
-2. Add background animations (particles/gradients).<br>
-3. Build Login/Signup forms with validation.<br>
-4. Ensure mobile responsiveness.<br><br>
+1. Create <code>app/(auth)/login/page.tsx</code>.<br>
+2. Use Glassmorphism effects with Tailwind.<br>
+3. Add background animations (particles/gradients).<br>
+4. Build Login/Signup forms with validation.<br><br>
 <strong>📌 Output:</strong> /login and /register pages.`,
         deepExplanation: `
 <h3>🎨 Premium Auth Design</h3>
 <hr>
+<p><strong>Folder to Create:</strong> <code>src/app/(auth)/login/page.tsx</code></p>
 <p><strong>Design Tips:</strong></p>
 - Use a dark rich background with a glowing gradient mesh.
-- Make the login card translucent (glass effect).
-- Use <strong>Framer Motion</strong> for the card to slide up on load.
+- Make the login card translucent using <code>backdrop-blur-md bg-white/10</code>.
+- Use <strong>Framer Motion</strong> to slide the card up on load:
+<pre><code>
+<motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
+  <LoginForm />
+</motion.div>
+</code></pre>
 `
     },
 
@@ -314,17 +331,20 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Build a ChatGPT-like experience.<br><br>
-1. Message Bubble components (User/Bot styles).<br>
-2. Typing indicators (animated dots).<br>
-3. Auto-scroll to bottom.<br>
+1. Create <code>src/components/premium/ChatInterface.tsx</code>.<br>
+2. Message Bubble components (User/Bot styles).<br>
+3. Typing indicators (animated dots).<br>
 4. Markdown rendering for bot responses.<br><br>
 <strong>📌 Output:</strong> Main Chat Component.`,
         deepExplanation: `
 <h3>💬 Chat UI Components</h3>
 <hr>
-- Use <strong>react-markdown</strong> to render bold text, lists, and code blocks from the bot.
-- Differentiate User (Right, Blue) and Bot (Left, Gray) messages.
-- Add "Copy to Clipboard" button for code blocks.
+<p><strong>Folder to Create:</strong> <code>src/components/premium/ChatInterface.tsx</code></p>
+- <strong>Dependency:</strong> Install <code>react-markdown</code> for rendering AI responses.
+- <strong>Styling:</strong>
+  - User Bubble: <code>bg-blue-600 text-white rounded-tr-none</code>
+  - Bot Bubble: <code>bg-slate-800 text-slate-200 rounded-tl-none</code>
+- <strong>Animation:</strong> Use <code>AnimatePresence</code> from Framer Motion for smooth message entry.
 `
     },
 
@@ -336,18 +356,24 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Navigation that adapts to the user.<br><br>
-1. Create collapsible sidebar.<br>
+1. Create <code>src/components/premium/Sidebar.tsx</code>.<br>
 2. Show User Profile section (Avatar + Name).<br>
 3. Display Role Badge (e.g., "Finance Team").<br>
-4. List accessible document categories.<br><br>
+4. List accessible document categories based on role.<br><br>
 <strong>📌 Output:</strong> Sidebar Component.`,
         deepExplanation: `
 <h3>🧭 Smart Navigation</h3>
 <hr>
-- If user role is "Finance", show 💰 Finance Icon.
-- If user role is "HR", show 👥 HR Icon.
-- Use <strong>Lucide React</strong> icons.
-- Add a "Logout" button at the bottom.
+<p><strong>Folder to Create:</strong> <code>src/components/premium/Sidebar.tsx</code></p>
+- <strong>Icons:</strong> Use <strong>Lucide React</strong> (e.g., <code><LayoutDashboard /></code>, <code><FileText /></code>).
+- <strong>Logic:</strong>
+<pre><code>
+const navItems = {
+  finance: [{ label: 'Q3 Reports', icon: <FileText /> }],
+  hr: [{ label: 'Resumes', icon: <UserPlus /> }]
+};
+// Render items based on currentUser.role
+</code></pre>
 `
     },
 
@@ -359,18 +385,20 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Visual data for C-Level users.<br><br>
-1. Integrate Recharts library.<br>
-2. Create "Documents Indexed" chart.<br>
-3. Create "Recent Queries" list.<br>
-4. Create "System Health" status cards.<br><br>
+1. Create <code>src/components/premium/DashboardWidgets.tsx</code>.<br>
+2. Integrate <strong>Recharts</strong> library.<br>
+3. Create "Documents Indexed" chart.<br>
+4. Create "Recent Queries" list.<br><br>
 <strong>📌 Output:</strong> Dashboard Page components.`,
         deepExplanation: `
 <h3>📊 Data Visualization</h3>
 <hr>
-- Create a grid layout for widgets.
-- Use a Line Chart for "Queries over time".
-- Use Pie Chart for "Document breakdown by Department".
-- Make them animate on load.
+<p><strong>Folder to Create:</strong> <code>src/components/premium/DashboardWidgets.tsx</code></p>
+- <strong>Dependency:</strong> <code>npm install recharts</code>
+- <strong>Components:</strong>
+  - <code><StatCard label="Total Queries" value="1,240" trend="+12%" /></code>
+  - <code><ActivityChart data={dailyUsageData} /></code>
+- <strong>Design:</strong> Use <code>bg-slate-900 border-slate-800</code> for dark mode cards.
 `
     },
 
@@ -382,17 +410,20 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Interface to view knowledge base.<br><br>
-1. Create Grid/List view of documents.<br>
-2. Implement Search/Filter by department.<br>
-3. Add "View Content" modal.<br>
-4. Show metadata tags.<br><br>
+1. Create <code>src/app/documents/page.tsx</code>.<br>
+2. Create Grid/List view of documents.<br>
+3. Implement Search/Filter by department.<br>
+4. Add "View Content" modal using Shadcn Dialog.<br><br>
 <strong>📌 Output:</strong> Knowledge Base page.`,
         deepExplanation: `
 <h3>📂 Document Explorer</h3>
 <hr>
-- Display documents as cards with icons (PDF/CSV).
-- Add a "Search Documents" input bar.
-- Clicking a document should open a slide-over panel with details.
+<p><strong>Folder to Create:</strong> <code>src/app/documents/page.tsx</code></p>
+- <strong>Components:</strong>
+  - <code><DocumentCard title="Q3 Financials" type="PDF" /></code>
+- <strong>Interaction:</strong>
+  - Add a "Search Documents" input bar using Shadcn Input.
+  - Clicking a document should open a <code><Dialog></code> with document details and metadata tags.
 `
     },
 
@@ -404,16 +435,22 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Personalization options.<br><br>
-1. Dark/Light mode toggle (using next-themes).<br>
-2. Profile update form.<br>
-3. Notification preferences.<br>
+1. Create <code>src/app/settings/page.tsx</code>.<br>
+2. Dark/Light mode toggle (using next-themes).<br>
+3. Profile update form.<br>
 4. Change password UI.<br><br>
 <strong>📌 Output:</strong> Settings Page.`,
         deepExplanation: `
 <h3>⚙️ Settings & Preferences</h3>
 <hr>
-- Use <strong>Shadcn Tabs</strong> to switch sections (Account, Appearance, Security).
-- Implement the Theme Toggle with sun/moon icons.
+<p><strong>Folder to Create:</strong> <code>src/app/settings/page.tsx</code></p>
+- <strong>Structure:</strong> Use <strong>Shadcn Tabs</strong> to separate:
+  - <strong>Account:</strong> Change Name, Email.
+  - <strong>Appearance:</strong> Theme Toggle (Sun/Moon).
+  - <strong>Security:</strong> Change Password.
+- <strong>Theme Toggle:</strong>
+<pre><code>const { setTheme } = useTheme()
+<Button onClick={() => setTheme("dark")}>Dark Mode</Button></code></pre>
 `
     },
 
@@ -425,18 +462,21 @@ Create <code>rbac-frontend</code> repo and push.
         priority: 'high',
         status: 'not-started',
         description: `<strong>Goal:</strong> Make RAG transparent.<br><br>
-1. Design citation badges (e.g., [1]).<br>
-2. Create hover popovers showing source excerpt.<br>
-3. Create "Sources Used" card below answer.<br>
+1. Create <code>src/components/premium/CitationBadge.tsx</code>.<br>
+2. Design citation badges (e.g., [1]).<br>
+3. Create hover popovers showing source excerpt.<br>
 4. Ensure clean typography.<br><br>
 <strong>📌 Output:</strong> Citation Components.`,
         deepExplanation: `
 <h3>📖 Citation UX</h3>
 <hr>
-- When the bot says "Revenue is up [1]", hovering [1] should show:
-  > "Source: Q3 Report.pdf (Page 4)"
-  > "extract text..."
-- Use <strong>Shadcn HoverCard</strong>.
+<p><strong>Folder to Create:</strong> <code>src/components/premium/CitationBadge.tsx</code></p>
+- <strong>UX Pattern:</strong>
+  - When the bot says "Revenue is up [1]", user sees a small badge.
+  - Hovering [1] triggers a <strong>Shadcn HoverCard</strong>.
+- <strong>Content:</strong>
+  - Show "Source: Q3 Report.pdf (Page 4)"
+  - Show snippet of the text used for generation.
 `
     }
 ];
