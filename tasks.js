@@ -1,6 +1,6 @@
 // Milestone 1: Data Preparation & Vector DB (Weeks 1-2) ✅ COMPLETED
 // Milestone 2: Backend Auth & Search (Weeks 3-4) ✅ COMPLETED
-// Milestone 4: Frontend & Deployment (Weeks 7-8) ⏳ NOT STARTED
+// Milestone 4: Frontend & Deployment (Weeks 7-8) 🔵 IN PROGRESS
 // ---------------------------------------------------------
 
 // Team Members
@@ -3727,9 +3727,9 @@ function renderTasks() {
     const week1 = tasks.filter(t => t.id >= 100 && t.id < 200);
 
     let html = `
-    <!-- MILESTONE 4: Frontend & Deployment (Not Started) -->
-    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(100, 116, 139, 0.1)); border-color: rgba(148, 163, 184, 0.3);">
-        <h2 style="color: #94a3b8;">⏳ Milestone 4: Frontend & Deployment (Weeks 7-8) - NOT STARTED</h2>
+    <!-- MILESTONE 4: Frontend & Deployment (In Progress) -->
+    <div class="milestone-header">
+        <h2>🎯 Milestone 4: Frontend & Deployment (Weeks 7-8) - IN PROGRESS</h2>
     </div>
 
     <!-- WEEK 8 (Not Started) -->
@@ -3745,12 +3745,12 @@ function renderTasks() {
         </div>
     </div>
 
-    <!-- WEEK 7 (Not Started) -->
+    <!-- WEEK 7 (In Progress) -->
     <div class="week-section">
         <div class="week-header" onclick="toggleWeek(7)">
             <span class="week-toggle">${week7Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 7: Premium Next.js Frontend Development</h3>
-            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+            <span class="week-status active">🔵 In Progress</span>
             <span class="task-count">${week7.length} tasks</span>
         </div>
         <div class="week-tasks ${week7Collapsed ? 'collapsed' : ''}">
