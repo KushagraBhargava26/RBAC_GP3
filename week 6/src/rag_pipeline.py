@@ -88,7 +88,14 @@ class RAGPipeline:
         return {
             "query": query,
             "response": generated_text,
-            "results": sources # Return full source objects for UI
+            "results": sources,
+            "metrics": {
+                "documents_retrieved": len(sources),
+                "avg_similarity": round(sum([1 - r.get('score', 0.5) for r in sources]) / max(len(sources), 1), 3),
+                "llm_enabled": self.client is not None,
+                "model": self.model_name if self.client else None,
+                "context_tokens": len(context_text.split())
+            }
         }
 
 if __name__ == "__main__":
