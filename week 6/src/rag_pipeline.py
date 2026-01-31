@@ -49,10 +49,12 @@ class RAGPipeline:
             sources.append(res)
             
         # 3. Construct Prompt
-        system_prompt = """You are a secure internal enterprise assistant. 
-        Answer the user's question using ONLY the provided context. 
-        If the answer is not in the context, say 'I cannot find this information in the documents you have access to.'
-        Do not Hallucinate."""
+        system_prompt = """You are a secure internal enterprise assistant.
+        1. For greetings (e.g., 'Hi', 'Hello'), respond politely and concisely.
+        2. For questions asking for information, use ONLY the provided context.
+        3. If the answer is not in the context, say 'I cannot find this information in the documents you have access to.'
+        4. Do not answer general knowledge questions outside the context.
+        """
         
         user_prompt = f"""
         CONTEXT:
@@ -67,7 +69,7 @@ class RAGPipeline:
         # 4. Call LLM or Fallback
         generated_text = ""
         
-        if self.client and results:
+        if self.client:
             try:
                 completion = self.client.chat.completions.create(
                     model=self.model_name,
@@ -81,9 +83,9 @@ class RAGPipeline:
                 generated_text = f"Error generating response: {str(e)}"
         else:
             if not results:
-                generated_text = "I couldn't find any relevant documents that you have access to."
+                generated_text = "I couldn't find any relevant documents. (AI Generation is disabled)"
             else:
-                generated_text = "Detailed AI response is disabled (No API Key). Here are the relevant documents found:"
+                generated_text = "Detailed AI response is disabled (No API Key). Here are the documents found:"
 
         return {
             "query": query,
