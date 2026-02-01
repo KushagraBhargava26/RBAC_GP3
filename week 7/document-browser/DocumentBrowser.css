@@ -1,0 +1,35 @@
+/* DocumentBrowser.css */
+.document-browser {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls input {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.controls button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f4f4f4;
+}
