@@ -34,11 +34,49 @@ export default function ChatInterface() {
     const [dept, setDept] = useState("general")
     const [username, setUsername] = useState<string | null>(null)
 
+    // Suggested questions per department
+    const suggestedQuestions: Record<string, string[]> = {
+        finance: [
+            "What is the Q4 2024 revenue?",
+            "What was the gross margin in 2024?",
+            "What are the vendor costs breakdown?",
+            "What is the cash flow from operations?"
+        ],
+        hr: [
+            "What is the leave policy?",
+            "What are the employee benefits?",
+            "How does the performance review process work?",
+            "What is the exit policy?"
+        ],
+        marketing: [
+            "What was the marketing ROI in 2024?",
+            "How many new customers were acquired?",
+            "What digital campaigns were launched?",
+            "What is the customer acquisition cost?"
+        ],
+        engineering: [
+            "What is the system architecture?",
+            "What technologies are used?",
+            "What is the deployment process?",
+            "How is security implemented?"
+        ],
+        general: [
+            "What is FinSolve Technologies?",
+            "What are the company values?",
+            "Tell me about the dress code policy",
+            "What is the work from home policy?"
+        ]
+    }
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             setUsername(localStorage.getItem("username"))
         }
     }, [])
+
+    const handleSuggestedClick = (question: string) => {
+        setQuery(question)
+    }
 
     const handleSend = async () => {
         if (!query.trim()) return
@@ -99,6 +137,22 @@ export default function ChatInterface() {
                         >
                             {d}
                         </Badge>
+                    ))}
+                </div>
+            </div>
+
+            {/* Suggested Questions */}
+            <div className="mb-4">
+                <p className="text-xs text-gray-500 mb-2">💡 Try asking:</p>
+                <div className="flex flex-wrap gap-2">
+                    {suggestedQuestions[dept]?.map((q, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => handleSuggestedClick(q)}
+                            className="text-xs px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50 rounded-full text-gray-300 hover:text-white transition-all"
+                        >
+                            {q}
+                        </button>
                     ))}
                 </div>
             </div>
