@@ -254,143 +254,131 @@ const week7Tasks = [
     // 0. LEAD TASK: Arshad Pasha (Project Architect)
     {
         id: 700,
-        title: 'Project Setup & Team Guidance',
+        title: 'Project Setup & Core Skeletons',
         assignee: 'Arshad Pasha',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> Initialize Repo & Mentor Teams.<br><br>
-1. <strong>Setup:</strong> Initialize Next.js 14 + Shadcn/UI repo.<br>
-2. <strong>Architecture:</strong> Define folder structure & API routes.<br>
-3. <strong>Mentorship:</strong> Guide Alpha, Beta, & Gamma teams.<br>
-4. <strong>Review:</strong> Merge PRs from all teams.<br><br>
-<strong>📌 Output:</strong> The <code>main</code> branch foundation & guidance.`,
+        description: `<strong>Goal:</strong> Initialize Architecture & Core Skeletons.<br><br>
+1. <strong>Root:</strong> <code>app/layout.tsx</code>, <code>app/page.tsx</code>.<br>
+2. <strong>Toast:</strong> <code>components/ui/sonner.tsx</code>.<br>
+3. <strong>Architecture:</strong> Ensure all teams can import from each other.<br>
+4. <strong>Review:</strong> Merge PRs from Alpha, Beta, & Gamma teams.<br><br>
+<strong>📌 Output:</strong> The <code>main</code> skeleton foundation.`,
         deepExplanation: `
 <h3>👑 Lead Architect Protocol</h3>
 <p style="color: #f87171; font-weight: bold;">Arshad Pasha (Solo)</p>
 <hr>
-<p>You are the bridge between all teams. Your job is to set the stage and let them perform.</p>
+<p>You have initialized the project with empty skeletons. Your task is to ensure the <code>RootLayout</code> and <code>HomePage</code> are ready for others to plug into.</p>
 
-<h4>🔹 Step 1: Foundation Setup</h4>
-<pre><code>npx create-next-app@latest rbac-frontend --typescript --tailwind
-npx shadcn-ui@latest init</code></pre>
-<p>Push this to the <code>main</code> branch so teams can fork/clone it.</p>
-
-<h4>🔹 Step 2: Mentorship Plan</h4>
+<h4>📂 Your Primary Files:</h4>
 <ul>
-    <li><strong>Alpha (Auth):</strong> Guide them on Clerk/NextAuth integration.</li>
-    <li><strong>Beta (Chat):</strong> Help them with API responsiveness.</li>
-    <li><strong>Gamma (Vis):</strong> Assist with Recharts data formatting.</li>
+    <li><code>app/layout.tsx</code> (Global Providers & Fonts)</li>
+    <li><code>app/page.tsx</code> (Landing Page Skeleton)</li>
+    <li><code>components/ui/sonner.tsx</code> (Toast system)</li>
 </ul>
+
+<h4>🔹 Execution Strategy</h4>
+<p>Check the GitHub repo for the skeleton versions. Ensure <code>app/layout.tsx</code> properly wraps the children so and navigation works across the dashboard.</p>
 `
     },
 
-    // 1. Team Alpha (Auth & Settings): Bhargava + Karthik
+    // 1. Team Alpha (Auth & UI): Bhargava + Karthik
     {
         id: 701,
-        title: 'Team Alpha: Authentication & User Profile',
+        title: 'Team Alpha: Auth & Atomic UI',
         assignee: 'Bhargava + Karthik',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> Secure Access & Personalization.<br><br>
-1. <strong>Bhargava:</strong> Design "Glassmorphism" Login Pages.<br>
-2. <strong>Karthik:</strong> Build User Settings Dashboard.<br>
-3. <strong>Collaboration:</strong> Ensure Login redirects to Settings on first use.<br>
-4. <strong>Support:</strong> Ask Arshad for architectural decisions.<br><br>
-<strong>📌 Output:</strong> Auth System & User Preferences.`,
+        description: `<strong>Goal:</strong> Skeleton Login & Basic UI Components.<br><br>
+1. <strong>Pages:</strong> <code>app/login/page.tsx</code>.<br>
+2. <strong>Forms:</strong> <code>components/login-form.tsx</code>.<br>
+3. <strong>Atomics:</strong> <code>button.tsx</code>, <code>input.tsx</code>, <code>card.tsx</code>, <code>label.tsx</code>.<br>
+4. <strong>Support:</strong> Consult Arshad on component styling.<br><br>
+<strong>📌 Output:</strong> Functional Auth UI skeleton.`,
         deepExplanation: `
 <h3>🤝 Team Alpha Protocol</h3>
 <p style="color: #fbbf24; font-weight: bold;">Bhargava ⚡ Karthik</p>
 <hr>
 
-<h4>📡 Communication & Ideas</h4>
-<p><strong>Goal:</strong> Build the secure entry point. Feel free to innovate!</p>
+<h4>📂 Your Primary Files:</h4>
+<ul>
+    <li><code>app/login/page.tsx</code> (Login Route)</li>
+    <li><code>components/login-form.tsx</code> (Auth Logic Skeleton)</li>
+    <li><code>components/ui/</code>: <code>button.tsx</code>, <code>input.tsx</code>, <code>label.tsx</code>, <code>card.tsx</code></li>
+</ul>
+
+<h4>📡 Innovation Encouraged</h4>
 <div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
-    <strong>💡 Innovation Encouraged:</strong><br>
-    <em>Example:</em> Can you add biometric (Passkey) support? Or a "Welcome Back" animation?
+    <strong>💡 Idea:</strong> Can the login form have a smooth fade-in? Use your mind ideas to suggest animations to Arshad.
 </div>
 
 <h4>🌿 Branching Strategy</h4>
-<p><strong>Step 1: Bhargava (Feature Lead) creates Team Branch:</strong></p>
-<pre><code>git checkout -b weekly/week7-alpha-merge</code></pre>
-
-<p><strong>Step 2: Individual Branches:</strong></p>
-<ul>
-    <li><strong>Bhargava:</strong> <code>git checkout -b bhargava/week7-login-ui</code></li>
-    <li><strong>Karthik:</strong> <code>git checkout -b karthik/week7-settings-ui</code></li>
-</ul>
+<p>Bhargava creates <code>weekly/week7-alpha-merge</code>. Both work on individual UI components and sync daily.</p>
 `
     },
 
     // 2. Team Beta (Chat & Navigation): Kavya + Joshika
     {
         id: 702,
-        title: 'Team Beta: Chat Experience & Navigation',
+        title: 'Team Beta: App Shell & Chat UI',
         assignee: 'Kavya Ghantasala + Joshika Reddy',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> The "Face" of the Chatbot.<br><br>
-1. <strong>Kavya:</strong> Build the ChatGPT-like Chat Interface.<br>
-2. <strong>Joshika:</strong> Create the Role-Based Sidebar.<br>
-3. <strong>Collaboration:</strong> Connect Sidebar Actions to Chat Context.<br><br>
-<strong>📌 Output:</strong> Responsive Chat UI.`,
+        description: `<strong>Goal:</strong> Dashboard Layout & Chat Skeletons.<br><br>
+1. <strong>Layout:</strong> <code>app/dashboard/layout.tsx</code>.<br>
+2. <strong>Core:</strong> <code>components/chat-interface.tsx</code>, <code>components/sidebar.tsx</code>.<br>
+3. <strong>UI:</strong> <code>scroll-area.tsx</code>, <code>separator.tsx</code>, <code>avatar.tsx</code>, <code>badge.tsx</code>.<br><br>
+<strong>📌 Output:</strong> Responsive App Framework.`,
         deepExplanation: `
 <h3>🤝 Team Beta Protocol</h3>
 <p style="color: #60a5fa; font-weight: bold;">Kavya ⚡ Joshika</p>
 <hr>
 
-<h4>📡 Communication & Ideas</h4>
-<p><strong>Goal:</strong> Make it conversational and natural.</p>
-<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
-    <strong>💡 Innovation Encouraged:</strong><br>
-    <em>Example:</em> Add "Typing" wave animations. Use a unique font for code blocks!
-</div>
-
-<h4>🌿 Branching Strategy</h4>
-<p><strong>Step 1: Kavya (Feature Lead) creates Team Branch:</strong></p>
-<pre><code>git checkout -b weekly/week7-beta-merge</code></pre>
-
-<p><strong>Step 2: Individual Branches:</strong></p>
+<h4>📂 Your Primary Files:</h4>
 <ul>
-    <li><strong>Kavya:</strong> <code>git checkout -b kavya/week7-chat-ui</code></li>
-    <li><strong>Joshika:</strong> <code>git checkout -b joshika/week7-sidebar-ui</code></li>
+    <li><code>app/dashboard/layout.tsx</code> (Main Dashboard Wrapper)</li>
+    <li><code>components/chat-interface.tsx</code> (AI Chat Skeleton)</li>
+    <li><code>components/sidebar.tsx</code> (Navigation Skeleton)</li>
+    <li><code>components/ui/</code>: <code>scroll-area</code>, <code>separator</code>, <code>avatar</code>, <code>badge</code></li>
 </ul>
+
+<h4>📡 Innovation Encouraged</h4>
+<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
+    <strong>💡 Idea:</strong> How should the sidebar collapse for smaller screens? Think about the "Premium" feel.
+</div>
 `
     },
 
-    // 3. Team Gamma (Data & Docs): Vinuthna + Shirisha + Saranya
+    // 3. Team Gamma (Data & API): Vinuthna + Shirisha + Saranya
     {
         id: 703,
-        title: 'Team Gamma: Data Viz & Knowledge Base',
+        title: 'Team Gamma: Data Flow & Dashboards',
         assignee: 'Vinuthna + Shirisha + Saranya',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> Visualizing the Data.<br><br>
-1. <strong>Vinuthna:</strong> Build Analytics Dashboard.<br>
-2. <strong>Shirisha:</strong> Create Document Browser Grid.<br>
-3. <strong>Saranya:</strong> Implement Citation Badges.<br><br>
-<strong>📌 Output:</strong> Visual Data Layer.`,
+        description: `<strong>Goal:</strong> Analytics & API Layer Skeletons.<br><br>
+1. <strong>Dashboard:</strong> <code>app/dashboard/page.tsx</code>.<br>
+2. <strong>Lib:</strong> <code>lib/api.ts</code>, <code>lib/utils.ts</code>.<br>
+3. <strong>Overlays:</strong> <code>dialog.tsx</code>, <code>dropdown-menu.tsx</code>.<br>
+4. <strong>Collaboration:</strong> Connect Gamma API logic to Beta UI.<br><br>
+<strong>📌 Output:</strong> Data handling and visualization layer.`,
         deepExplanation: `
 <h3>🤝 Team Gamma Protocol</h3>
 <p style="color: #f472b6; font-weight: bold;">Vinuthna ⚡ Shirisha ⚡ Saranya</p>
 <hr>
 
-<h4>📡 Communication & Ideas</h4>
-<p><strong>Goal:</strong> Make data beautiful and easy to read.</p>
-<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
-    <strong>💡 Innovation Encouraged:</strong><br>
-    <em>Example:</em> Animated charts on load? Dark mode specific color palettes for graphs?
-</div>
-
-<h4>🌿 Branching Strategy</h4>
-<p><strong>Step 1: Vinuthna (Feature Lead) creates Team Branch:</strong></p>
-<pre><code>git checkout -b weekly/week7-gamma-merge</code></pre>
-
-<p><strong>Step 2: Individual Branches:</strong></p>
+<h4>📂 Your Primary Files:</h4>
 <ul>
-    <li><strong>Vinuthna:</strong> <code>git checkout -b vinuthna/week7-dashboard</code></li>
-    <li><strong>Shirisha:</strong> <code>git checkout -b shirisha/week7-docs</code></li>
-    <li><strong>Saranya:</strong> <code>git checkout -b saranya/week7-citations</code></li>
+    <li><code>app/dashboard/page.tsx</code> (Analytics Dashboard)</li>
+    <li><code>lib/api.ts</code> (Fetch/Post logic skeleton)</li>
+    <li><code>lib/utils.ts</code> (Tailwind merge/Classname helpers)</li>
+    <li><code>components/ui/</code>: <code>dialog.tsx</code>, <code>dropdown-menu.tsx</code></li>
 </ul>
+
+<h4>📡 Innovation Encouraged</h4>
+<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
+    <strong>💡 Idea:</strong> How can we make the charts responsive? Look into Recharts integration for the next step.
+</div>
 `
     }
 ];
@@ -3496,8 +3484,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    // UPDATED KEY to force refresh for Week 7 Collaborative Update
-    const stored = localStorage.getItem('rbac_tasks_milestone4_week7_v7');
+    // UPDATED KEY to force refresh for Week 7 Skeleton Assignments
+    const stored = localStorage.getItem('rbac_tasks_milestone4_skeleton_v8');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -3509,7 +3497,7 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone4_week7_v7', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone4_skeleton_v8', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
