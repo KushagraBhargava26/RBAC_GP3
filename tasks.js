@@ -266,7 +266,7 @@ const week7Tasks = [
 <strong>📌 Output:</strong> The <code>main</code> skeleton foundation.`,
         deepExplanation: `
 <h3>👑 Lead Architect Protocol</h3>
-<p style="color: #f87171; font-weight: bold;">Arshad Pasha (Solo)</p>
+<p style="color: #f87171; font-weight: bold;">Arshad Pasha (The Supervisor)</p>
 <hr>
 <p>You have initialized the project with empty skeletons. Your task is to ensure the <code>RootLayout</code> and <code>HomePage</code> are ready for others to plug into.</p>
 
@@ -277,8 +277,11 @@ const week7Tasks = [
     <li><code>components/ui/sonner.tsx</code> (Toast system)</li>
 </ul>
 
-<h4>🔹 Execution Strategy</h4>
-<p>Check the GitHub repo for the skeleton versions. Ensure <code>app/layout.tsx</code> properly wraps the children so and navigation works across the dashboard.</p>
+<h4>🌿 Branching Strategy (SOLO)</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b arshad/week7-core-setup</code></pre>
+<p>Once finished, merge this back to <code>main</code> so the teams have a base to work from.</p>
 `
     },
 
@@ -300,20 +303,28 @@ const week7Tasks = [
 <p style="color: #fbbf24; font-weight: bold;">Bhargava ⚡ Karthik</p>
 <hr>
 
-<h4>📂 Your Primary Files:</h4>
+<h4>🌿 Branching Strategy (Step-by-Step)</h4>
+<p><strong>Phase 1: The Team Hub (Lead Activity)</strong></p>
+<p>Bhargava (Alpha Lead) creates the merge branch:</p>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b weekly/week7-alpha-merge</code></pre>
+
+<p><strong>Phase 2: Individual Development</strong></p>
+<p>Everyone creates their own branch FROM the alpha-merge branch:</p>
+<pre><code>git checkout weekly/week7-alpha-merge
+git checkout -b [name]/week7-alpha-tasks</code></pre>
 <ul>
-    <li><code>app/login/page.tsx</code> (Login Route)</li>
-    <li><code>components/login-form.tsx</code> (Auth Logic Skeleton)</li>
-    <li><code>components/ui/</code>: <code>button.tsx</code>, <code>input.tsx</code>, <code>label.tsx</code>, <code>card.tsx</code></li>
+    <li><strong>Bhargava:</strong> <code>git checkout -b bhargava/week7-login-ui</code></li>
+    <li><strong>Karthik:</strong> <code>git checkout -b karthik/week7-ui-components</code></li>
 </ul>
 
-<h4>📡 Innovation Encouraged</h4>
-<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
-    <strong>💡 Idea:</strong> Can the login form have a smooth fade-in? Use your mind ideas to suggest animations to Arshad.
-</div>
-
-<h4>🌿 Branching Strategy</h4>
-<p>Bhargava creates <code>weekly/week7-alpha-merge</code>. Both work on individual UI components and sync daily.</p>
+<h4>📂 File Assignments:</h4>
+<ul>
+    <li><code>app/login/page.tsx</code> (Main Login Route)</li>
+    <li><code>components/login-form.tsx</code> (Form skeleton)</li>
+    <li><code>components/ui/</code>: <code>button.tsx</code>, <code>input.tsx</code>, <code>card.tsx</code></li>
+</ul>
 `
     },
 
@@ -334,18 +345,28 @@ const week7Tasks = [
 <p style="color: #60a5fa; font-weight: bold;">Kavya ⚡ Joshika</p>
 <hr>
 
-<h4>📂 Your Primary Files:</h4>
+<h4>🌿 Branching Strategy (Step-by-Step)</h4>
+<p><strong>Phase 1: The Team Hub (Lead Activity)</strong></p>
+<p>Kavya (Beta Lead) creates the merge branch:</p>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b weekly/week7-beta-merge</code></pre>
+
+<p><strong>Phase 2: Individual Development</strong></p>
+<pre><code>git checkout weekly/week7-beta-merge
+git checkout -b [name]/week7-beta-tasks</code></pre>
 <ul>
-    <li><code>app/dashboard/layout.tsx</code> (Main Dashboard Wrapper)</li>
-    <li><code>components/chat-interface.tsx</code> (AI Chat Skeleton)</li>
-    <li><code>components/sidebar.tsx</code> (Navigation Skeleton)</li>
-    <li><code>components/ui/</code>: <code>scroll-area</code>, <code>separator</code>, <code>avatar</code>, <code>badge</code></li>
+    <li><strong>Kavya:</strong> <code>git checkout -b kavya/week7-chat-interface</code></li>
+    <li><strong>Joshika:</strong> <code>git checkout -b joshika/week7-sidebar-ui</code></li>
 </ul>
 
-<h4>📡 Innovation Encouraged</h4>
-<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
-    <strong>💡 Idea:</strong> How should the sidebar collapse for smaller screens? Think about the "Premium" feel.
-</div>
+<h4>📂 File Assignments:</h4>
+<ul>
+    <li><code>app/dashboard/layout.tsx</code> (Dashboard Shell)</li>
+    <li><code>components/chat-interface.tsx</code></li>
+    <li><code>components/sidebar.tsx</code></li>
+    <li><code>components/ui/</code>: <code>scroll-area</code>, <code>avatar</code>, <code>badge</code></li>
+</ul>
 `
     },
 
@@ -367,18 +388,28 @@ const week7Tasks = [
 <p style="color: #f472b6; font-weight: bold;">Vinuthna ⚡ Shirisha ⚡ Saranya</p>
 <hr>
 
-<h4>📂 Your Primary Files:</h4>
+<h4>🌿 Branching Strategy (Step-by-Step)</h4>
+<p><strong>Phase 1: The Team Hub (Lead Activity)</strong></p>
+<p>Vinuthna (Gamma Lead) creates the merge branch:</p>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b weekly/week7-gamma-merge</code></pre>
+
+<p><strong>Phase 2: Individual Development</strong></p>
+<pre><code>git checkout weekly/week7-gamma-merge
+git checkout -b [name]/week7-gamma-tasks</code></pre>
 <ul>
-    <li><code>app/dashboard/page.tsx</code> (Analytics Dashboard)</li>
-    <li><code>lib/api.ts</code> (Fetch/Post logic skeleton)</li>
-    <li><code>lib/utils.ts</code> (Tailwind merge/Classname helpers)</li>
-    <li><code>components/ui/</code>: <code>dialog.tsx</code>, <code>dropdown-menu.tsx</code></li>
+    <li><strong>Vinuthna:</strong> <code>git checkout -b vinuthna/week7-dashboard-page</code></li>
+    <li><strong>Shirisha:</strong> <code>git checkout -b shirisha/week7-api-lib</code></li>
+    <li><strong>Saranya:</strong> <code>git checkout -b saranya/week7-ui-overlays</code></li>
 </ul>
 
-<h4>📡 Innovation Encouraged</h4>
-<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
-    <strong>💡 Idea:</strong> How can we make the charts responsive? Look into Recharts integration for the next step.
-</div>
+<h4>📂 File Assignments:</h4>
+<ul>
+    <li><code>app/dashboard/page.tsx</code> (Analytics)</li>
+    <li><code>lib/api.ts</code> (Communication Layer)</li>
+    <li><code>components/ui/</code>: <code>dialog.tsx</code>, <code>dropdown-menu.tsx</code></li>
+</ul>
 `
     }
 ];
@@ -3484,8 +3515,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    // UPDATED KEY to force refresh for Week 7 Skeleton Assignments
-    const stored = localStorage.getItem('rbac_tasks_milestone4_skeleton_v8');
+    // UPDATED KEY to force refresh for Final Week 7 Branching & Skeleton Update
+    const stored = localStorage.getItem('rbac_tasks_milestone4_final_v9');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -3497,7 +3528,7 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone4_skeleton_v8', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone4_final_v9', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
