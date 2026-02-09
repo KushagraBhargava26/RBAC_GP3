@@ -257,7 +257,7 @@ const week7Tasks = [
         title: 'Project Setup & Core Skeletons',
         assignee: 'Arshad Pasha',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Initialize Architecture & Core Skeletons.<br><br>
 1. <strong>Root:</strong> <code>app/layout.tsx</code>, <code>app/page.tsx</code>.<br>
 2. <strong>Toast:</strong> <code>components/ui/sonner.tsx</code>.<br>
@@ -291,7 +291,7 @@ git checkout -b arshad/week7-core-setup</code></pre>
         title: 'Team Alpha: Auth & Atomic UI',
         assignee: 'Bhargava + Karthik',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Skeleton Login & Basic UI Components.<br><br>
 1. <strong>Pages:</strong> <code>app/login/page.tsx</code>.<br>
 2. <strong>Forms:</strong> <code>components/login-form.tsx</code>.<br>
@@ -334,7 +334,7 @@ git checkout -b [name]/week7-alpha-tasks</code></pre>
         title: 'Team Beta: App Shell & Chat UI',
         assignee: 'Kavya Ghantasala + Joshika Reddy',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Dashboard Layout & Chat Skeletons.<br><br>
 1. <strong>Layout:</strong> <code>app/dashboard/layout.tsx</code>.<br>
 2. <strong>Core:</strong> <code>components/chat-interface.tsx</code>, <code>components/sidebar.tsx</code>.<br>
@@ -376,7 +376,7 @@ git checkout -b [name]/week7-beta-tasks</code></pre>
         title: 'Team Gamma: Data Flow & Dashboards',
         assignee: 'Vinuthna + Shirisha + Saranya',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Analytics & API Layer Skeletons.<br><br>
 1. <strong>Dashboard:</strong> <code>app/dashboard/page.tsx</code>.<br>
 2. <strong>Lib:</strong> <code>lib/api.ts</code>, <code>lib/utils.ts</code>.<br>
@@ -3515,8 +3515,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    // UPDATED KEY to force refresh for Final Week 7 Branching & Skeleton Update
-    const stored = localStorage.getItem('rbac_tasks_milestone4_final_v9');
+    // UPDATED KEY to force refresh for Week 7 Completed
+    const stored = localStorage.getItem('rbac_tasks_week7_completed_v11');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -3528,7 +3528,7 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone4_final_v9', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_week7_completed_v11', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
@@ -3622,9 +3622,7 @@ function toggleWeek(weekNum) {
     } else if (weekNum === 7) {
         week7Collapsed = !week7Collapsed;
     } else if (weekNum === 8) {
-        // week8Collapsed = !week8Collapsed; 
-        alert("🔒 Milestone 4 Focus: Finish Week 7 Tasks First!");
-        return;
+        week8Collapsed = !week8Collapsed;
     }
     renderTasks();
 }
@@ -3696,23 +3694,25 @@ function renderTasks() {
         </div>
     </div>
 
-    <!-- WEEK 8 (LOCKED) -->
-    <div class="week-section" style="opacity: 0.5; pointer-events: none; filter: grayscale(1);">
-        <div class="week-header" onclick="toggleWeek(8)" style="cursor: not-allowed;">
-            <span class="week-toggle">🔒</span>
-            <h3>📅 Week 8: System Integration (LOCKED)</h3>
-            <span class="week-status" style="background: #334155; color: #94a3b8;">🔒 Locked</span>
+    <!-- WEEK 8 (Unlocked) -->
+    <div class="week-section">
+        <div class="week-header" onclick="toggleWeek(8)">
+            <span class="week-toggle">${week8Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 8: System Integration, Testing & Deployment</h3>
+            <span class="week-status" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.4);">🔵 In Progress</span>
             <span class="task-count">${week8.length} tasks</span>
         </div>
-        <!-- Collapsed by default and no tasks rendered -->
+        <div class="week-tasks ${week8Collapsed ? 'collapsed' : ''}">
+            ${week8.map(task => createTaskHTML(task)).join('')}
+        </div>
     </div>
 
-    <!-- WEEK 7 (In Progress) -->
-    <div class="week-section">
+    <!-- WEEK 7 (Completed) -->
+    <div class="week-section week-completed">
         <div class="week-header" onclick="toggleWeek(7)">
             <span class="week-toggle">${week7Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 7: Premium Next.js Frontend Development</h3>
-            <span class="week-status active">🔵 In Progress</span>
+            <span class="week-status completed">✅ Completed</span>
             <span class="task-count">${week7.length} tasks</span>
         </div>
         <div class="week-tasks ${week7Collapsed ? 'collapsed' : ''}">
