@@ -1,4 +1,7 @@
+"use client";
+
+import ChatInterface from "@/components/chat-interface";
+
 export default function DashboardPage() {
-  // TODO: Implement dashboard page
-  return <div></div>;
+  return <ChatInterface />;
 }
