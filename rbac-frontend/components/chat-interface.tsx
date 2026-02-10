@@ -33,46 +33,102 @@ export default function ChatInterface() {
     const [loading, setLoading] = useState(false)
     const [dept, setDept] = useState("general")
     const [username, setUsername] = useState<string | null>(null)
+    const [userRole, setUserRole] = useState<string | null>(null)
 
-    // Suggested questions per department
-    const suggestedQuestions: Record<string, string[]> = {
-        finance: [
-            "What is the Q4 2024 revenue?",
-            "What was the gross margin in 2024?",
-            "What are the vendor costs breakdown?",
-            "What is the cash flow from operations?"
-        ],
-        hr: [
-            "What is the leave policy?",
-            "What are the employee benefits?",
-            "How does the performance review process work?",
-            "What is the exit policy?"
-        ],
-        marketing: [
-            "What was the marketing ROI in 2024?",
-            "How many new customers were acquired?",
-            "What digital campaigns were launched?",
-            "What is the customer acquisition cost?"
-        ],
-        engineering: [
-            "What is the system architecture?",
-            "What technologies are used?",
-            "What is the deployment process?",
-            "How is security implemented?"
-        ],
-        general: [
-            "What is FinSolve Technologies?",
-            "What are the company values?",
-            "Tell me about the dress code policy",
-            "What is the work from home policy?"
-        ]
+    // Suggested questions per department - organized by access type
+    const suggestedQuestions: Record<string, { authorized: string[], testUnauthorized: string[] }> = {
+        finance: {
+            authorized: [
+                "What is the Q4 2024 revenue?",
+                "What was the gross margin in 2024?",
+                "What are the vendor costs breakdown?"
+            ],
+            testUnauthorized: [
+                "❌ Test: What is the leave policy?", // HR question
+                "❌ Test: What is the weather today?" // Unrelated
+            ]
+        },
+        hr: {
+            authorized: [
+                "What is the leave policy?",
+                "What are the employee benefits?",
+                "How does the performance review process work?"
+            ],
+            testUnauthorized: [
+                "❌ Test: What was the Q4 2024 revenue?", // Finance question
+                "❌ Test: Tell me a joke" // Unrelated
+            ]
+        },
+        marketing: {
+            authorized: [
+                "What was the marketing ROI in 2024?",
+                "How many new customers were acquired?",
+                "What digital campaigns were launched?"
+            ],
+            testUnauthorized: [
+                "❌ Test: What is the employee exit policy?", // HR question
+                "❌ Test: Who won the football match?" // Unrelated
+            ]
+        },
+        engineering: {
+            authorized: [
+                "What is the system architecture?",
+                "What technologies are used in production?",
+                "What is the deployment process?"
+            ],
+            testUnauthorized: [
+                "❌ Test: What is the marketing budget?", // Marketing question
+                "❌ Test: How to cook pasta?" // Unrelated
+            ]
+        },
+        general: {
+            authorized: [
+                "What is FinSolve Technologies?",
+                "What are the company values?",
+                "What is the work from home policy?"
+            ],
+            testUnauthorized: [
+                "❌ Test: What is the Q4 revenue?", // Finance question (general users can't access)
+                "❌ Test: Give me investment advice" // Unrelated
+            ]
+        }
     }
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             setUsername(localStorage.getItem("username"))
+            setUserRole(localStorage.getItem("user_role"))
         }
     }, [])
+
+    // Get display name based on role and department
+    const getDisplayName = () => {
+        if (!userRole) return username || "User"
+
+        const roleMap: Record<string, string> = {
+            "c-level": "Admin",
+            "finance": "Finance",
+            "hr": "HR",
+            "marketing": "Marketing",
+            "engineering": "Engineering"
+        }
+
+        const baseRole = roleMap[userRole.toLowerCase()] || userRole
+
+        // For C-level, show department context
+        if (userRole.toLowerCase() === "c-level") {
+            const deptMap: Record<string, string> = {
+                "finance": "Admin (Finance)",
+                "hr": "Admin (HR)",
+                "marketing": "Admin (Marketing)",
+                "engineering": "Admin (Engineering)",
+                "general": "Admin"
+            }
+            return deptMap[dept] || "Admin"
+        }
+
+        return baseRole
+    }
 
     const handleSuggestedClick = (question: string) => {
         setQuery(question)
@@ -117,9 +173,13 @@ export default function ChatInterface() {
             {/* Welcome Header */}
             <div className="mb-6">
                 <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    Welcome back, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{username || "User"}</span>
+                    Welcome back, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{getDisplayName()}</span>
                 </h1>
                 <p className="text-gray-500 mt-1">What can I help you find across your secure documents today?</p>
+                <div className="mt-2 text-xs text-gray-600 bg-blue-500/10 border border-blue-500/20 rounded-lg p-2">
+                    💡 <span className="text-blue-400 font-semibold">Note:</span> Admin users have access to ALL departments. Other roles can only access their own department.
+                    <span className="text-gray-500"> "General" contains company-wide policies accessible to everyone.</span>
+                </div>
             </div>
 
             {/* Header / Dept Selector */}
@@ -142,18 +202,41 @@ export default function ChatInterface() {
             </div>
 
             {/* Suggested Questions */}
-            <div className="mb-4">
-                <p className="text-xs text-gray-500 mb-2">💡 Try asking:</p>
-                <div className="flex flex-wrap gap-2">
-                    {suggestedQuestions[dept]?.map((q, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => handleSuggestedClick(q)}
-                            className="text-xs px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50 rounded-full text-gray-300 hover:text-white transition-all"
-                        >
-                            {q}
-                        </button>
-                    ))}
+            <div className="mb-4 space-y-3">
+                {/* Authorized Questions */}
+                <div>
+                    <p className="text-xs text-green-400 mb-2 flex items-center gap-1">
+                        ✅ Try these authorized questions:
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                        {suggestedQuestions[dept]?.authorized.map((q, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => handleSuggestedClick(q)}
+                                className="text-xs px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 hover:border-green-500/50 rounded-full text-green-300 hover:text-green-200 transition-all"
+                            >
+                                {q}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Test Unauthorized Questions */}
+                <div>
+                    <p className="text-xs text-red-400 mb-2 flex items-center gap-1">
+                        🔒 Test access control (these should be denied):
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                        {suggestedQuestions[dept]?.testUnauthorized.map((q, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => handleSuggestedClick(q.replace('❌ Test: ', ''))}
+                                className="text-xs px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 hover:border-red-500/50 rounded-full text-red-300 hover:text-red-200 transition-all"
+                            >
+                                {q}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
 
