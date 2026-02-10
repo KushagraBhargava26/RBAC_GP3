@@ -57,7 +57,7 @@ class QueryRequest(BaseModel):
 
 # Endpoints
 
-@app.post("/auth/login", response_model=Token)
+@app.post("/auth/login")
 def login(request: LoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == request.username).first()
     if not user or not pwd_context.verify(request.password, user.hashed_password):
@@ -67,7 +67,12 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
         )
     
     access_token = create_access_token(user_id=str(user.id), role=user.role)
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {
+        "access_token": access_token, 
+        "token_type": "bearer",
+        "role": user.role,  # Include role in response
+        "username": user.username
+    }
 
 @app.post("/query/finance")
 def query_finance(request: QueryRequest, user: dict = Depends(RoleChecker(["finance", "c-level"]))):

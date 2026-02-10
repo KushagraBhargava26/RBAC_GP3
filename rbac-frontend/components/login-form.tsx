@@ -28,13 +28,24 @@ export default function LoginForm() {
         setLoading(true)
         try {
             const res = await api.post("/auth/login", { username, password })
-            const { access_token } = res.data
+            const { access_token, role, username: returnedUsername } = res.data
 
             localStorage.setItem("access_token", access_token)
-            localStorage.setItem("username", username)
+            localStorage.setItem("username", returnedUsername || username)
+            localStorage.setItem("user_role", role) // Store user role
+
+            // Map role to display name
+            const roleDisplay: Record<string, string> = {
+                "c-level": "Admin",
+                "finance": "Finance Manager",
+                "hr": "HR Manager",
+                "marketing": "Marketing Manager",
+                "engineering": "Engineering Manager"
+            }
+            const displayName = roleDisplay[role?.toLowerCase() || ""] || role
 
             toast.success("Login successful", {
-                description: `Welcome back, ${username}!`
+                description: `Welcome back, ${displayName}!`
             })
             router.push("/dashboard")
         } catch (err: any) {

@@ -33,6 +33,7 @@ export default function ChatInterface() {
     const [loading, setLoading] = useState(false)
     const [dept, setDept] = useState("general")
     const [username, setUsername] = useState<string | null>(null)
+    const [userRole, setUserRole] = useState<string | null>(null)
 
     // Suggested questions per department - organized by access type
     const suggestedQuestions: Record<string, { authorized: string[], testUnauthorized: string[] }> = {
@@ -96,8 +97,38 @@ export default function ChatInterface() {
     useEffect(() => {
         if (typeof window !== "undefined") {
             setUsername(localStorage.getItem("username"))
+            setUserRole(localStorage.getItem("user_role"))
         }
     }, [])
+
+    // Get display name based on role and department
+    const getDisplayName = () => {
+        if (!userRole) return username || "User"
+
+        const roleMap: Record<string, string> = {
+            "c-level": "Admin",
+            "finance": "Finance",
+            "hr": "HR",
+            "marketing": "Marketing",
+            "engineering": "Engineering"
+        }
+
+        const baseRole = roleMap[userRole.toLowerCase()] || userRole
+
+        // For C-level, show department context
+        if (userRole.toLowerCase() === "c-level") {
+            const deptMap: Record<string, string> = {
+                "finance": "Admin (Finance)",
+                "hr": "Admin (HR)",
+                "marketing": "Admin (Marketing)",
+                "engineering": "Admin (Engineering)",
+                "general": "Admin"
+            }
+            return deptMap[dept] || "Admin"
+        }
+
+        return baseRole
+    }
 
     const handleSuggestedClick = (question: string) => {
         setQuery(question)
@@ -142,11 +173,11 @@ export default function ChatInterface() {
             {/* Welcome Header */}
             <div className="mb-6">
                 <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    Welcome back, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{username || "User"}</span>
+                    Welcome back, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{getDisplayName()}</span>
                 </h1>
                 <p className="text-gray-500 mt-1">What can I help you find across your secure documents today?</p>
                 <div className="mt-2 text-xs text-gray-600 bg-blue-500/10 border border-blue-500/20 rounded-lg p-2">
-                    💡 <span className="text-blue-400 font-semibold">Note:</span> C-Level users have access to ALL departments. Other roles can only access their own department.
+                    💡 <span className="text-blue-400 font-semibold">Note:</span> Admin users have access to ALL departments. Other roles can only access their own department.
                     <span className="text-gray-500"> "General" contains company-wide policies accessible to everyone.</span>
                 </div>
             </div>

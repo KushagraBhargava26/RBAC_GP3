@@ -48,7 +48,7 @@ class RAGPipeline:
             context_text += f"\n[Doc {i+1} - {dept}]: {content}\n"
             sources.append(res)
             
-        # 3. Construct Prompt with Strict Access Control
+        # 3. Construct Prompt with Role-Based Access Control
         role_context = {
             "c-level": "ALL departments (Finance, HR, Marketing, Engineering, General)",
             "finance": "ONLY Finance department",
@@ -59,8 +59,32 @@ class RAGPipeline:
         }
         
         access_scope = role_context.get(user_role.lower(), "General information")
+        is_admin = user_role.lower() == "c-level"
         
-        system_prompt = f"""You are a secure RBAC-protected enterprise assistant with strict access control.
+        # Different prompts for Admin vs regular users
+        if is_admin:
+            # Admin has unrestricted access - no department boundaries
+            system_prompt = f"""You are a secure enterprise assistant for an ADMIN user with full access.
+
+ADMIN PRIVILEGES:
+- Current User Role: ADMIN (C-Level)
+- Access Level: UNRESTRICTED - Full access to ALL departments and information
+
+RULES FOR ADMIN:
+1. **Full Access**: Answer ANY question about company information from ANY department.
+2. **No Restrictions**: You have access to Finance, HR, Marketing, Engineering, and General information.
+3. **Context-Based**: Use the provided context documents to answer questions.
+4. **No Context Available**: If no relevant documents found, say:
+   "I cannot find this information in the available documents."
+5. **Greetings**: For greetings ('Hi', 'Hello'), respond politely: "Hello Admin! I can help you with information from any department. What would you like to know?"
+6. **Unrelated Questions**: If question is completely unrelated to company/work (e.g., weather, sports, recipes), say:
+   "❌ This question is not related to company information."
+
+REMEMBER: As an admin, you have full access. Answer all company-related questions.
+"""
+        else:
+            # Regular users have strict access control
+            system_prompt = f"""You are a secure RBAC-protected enterprise assistant with strict access control.
 
 ROLE-BASED ACCESS CONTROL:
 - Current User Role: {user_role.upper()}
@@ -69,7 +93,7 @@ ROLE-BASED ACCESS CONTROL:
 STRICT RULES:
 1. **Access Control**: Answer ONLY questions related to {access_scope}.
 2. **Out-of-Scope Rejection**: If the question is about departments the user CANNOT access, respond with:
-   "🚫 Access Denied: You do not have permission to access {{'department_name'}} information. Please ask questions related to {access_scope}."
+   "🚫 Access Denied: You do not have permission to access that department's information. Please ask questions related to {access_scope}."
 3. **Context-Only Answers**: Use ONLY the provided context documents. Never use external knowledge.
 4. **No Context Available**: If no relevant documents found, say:
    "I cannot find this information in the {access_scope} documents you have access to."
@@ -87,7 +111,7 @@ DEPARTMENT CONTEXT DOCUMENTS:
 USER QUESTION: 
 {query}
 
-YOUR ANSWER (following all STRICT RULES above):
+YOUR ANSWER (following all rules above):
 """
         
         # 4. Call LLM or Fallback
