@@ -1,114 +1,73 @@
 import json
-import logging
 import os
+import logging
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler()
-    ]
-)
+# Configure logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class RBACFilter:
-    """
-    RBACFilter handles the filtering of search results based on user roles and department access.
-    """
-    def __init__(self, config_path):
-        self.config_path = config_path
-        self.hierarchy = {}
-        self.department_access = {}
-        self.load_config()
-
-    def load_config(self):
-        """Loads the role hierarchy and department access from role_hierarchy.json."""
-        try:
-            if not os.path.exists(self.config_path):
-                raise FileNotFoundError(f"Config file not found: {self.config_path}")
+    def __init__(self):
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        config_path = os.path.join(base_dir, '..', 'config', 'role_hierarchy.json')
+        
+        with open(config_path, 'r', encoding='utf-8') as f:
+            self.config = json.load(f)
             
-            with open(self.config_path, 'r') as f:
-                config = json.load(f)
-                self.hierarchy = config.get('hierarchy', {})
-                self.department_access = config.get('department_access', {})
-                logging.info(f"Successfully loaded RBAC configuration from {self.config_path}")
-        except Exception as e:
-            logging.error(f"Error loading RBAC configuration: {e}")
-            raise
+        self.role_hierarchy = self.config.get("hierarchy", {})
+        self.dept_access = self.config.get("department_access", {})
+        
+        # Normalize dept access keys to lowercase for robust matching
+        self.dept_access = {k.lower(): [d.lower() for d in v] for k, v in self.dept_access.items()}
 
     def get_accessible_departments(self, user_role):
-        """Returns a list of departments accessible by the given user role."""
         user_role = user_role.lower()
-        # Find if the role exists in our configuration
-        if user_role in self.department_access:
-            return self.department_access[user_role]
-        
-        # Default behavior: if role is not found, only general access
-        logging.warning(f"Role '{user_role}' not found in configuration. Defaulting to 'general' access.")
-        return ["general"]
+        return self.dept_access.get(user_role, [])
 
     def filter_by_role(self, user_role, search_results):
         """
-        Filters search results based on the user's role.
+        Filters search results based on user role.
         
         Args:
-            user_role (str): The role of the user (e.g., 'finance', 'hr', 'c-level').
-            search_results (list): A list of dictionaries, each containing 'content' and 'department' metadata.
+            user_role (str): The role of the user (e.g., 'finance', 'c-level')
+            search_results (list): List of dicts with 'metadata' -> 'department'
             
         Returns:
-            list: A list of accessible search results.
+            list: Filtered results
         """
         user_role = user_role.lower()
-        accessible_departments = self.get_accessible_departments(user_role)
+        allowed_depts = self.get_accessible_departments(user_role)
         
-        filtered_results = []
+        filtered = []
+        blocked_count = 0
         
         for result in search_results:
-            doc_department = result.get('department', 'general')
+            # Safely get department, default to unknown
+            doc_dept = result.get('metadata', {}).get('department', 'unknown')
             
-            # Case insensitive match for department access
-            if any(doc_department.lower() == access_dept.lower() for access_dept in accessible_departments):
-                filtered_results.append(result)
-                logging.info(f"ACCESS ALLOWED: Role '{user_role}' accessed document from department '{doc_department}'")
+            # Check if doc_dept is in allowed list (case-insensitive)
+            if doc_dept.lower() in allowed_depts:
+                filtered.append(result)
             else:
-                logging.warning(f"ACCESS DENIED: Role '{user_role}' attempted to access document from department '{doc_department}'")
-        
-        return filtered_results
+                blocked_count += 1
+                
+        logger.info(f"RBAC Filter: Role='{user_role}' | Allowed={len(filtered)} | Blocked={blocked_count}")
+        return filtered
 
-# Test Script
 if __name__ == "__main__":
-    # Define the config path relative to the script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_file = os.path.join(script_dir, "..", "config", "role_hierarchy.json")
+    # Test
+    rbac = RBACFilter()
     
-    # Initialize RBAC Filter
-    rbac = RBACFilter(config_file)
-    
-    # Sample search results with department metadata
     sample_results = [
-        {"id": 1, "content": "Engineering Roadmap 2026", "department": "engineering"},
-        {"id": 2, "content": "Q4 Financial Report", "department": "Finance"},
-        {"id": 3, "content": "Employee Onboarding Guide", "department": "general"},
-        {"id": 4, "content": "HR Disciplinary Actions", "department": "HR"},
-        {"id": 5, "content": "Marketing Strategy Q1", "department": "marketing"}
+        {"id": "1", "metadata": {"department": "Finance"}},
+        {"id": "2", "metadata": {"department": "HR"}},
+        {"id": "3", "metadata": {"department": "General"}}
     ]
     
-    print("\n--- Testing Access for FINANCE User ---")
-    finance_results = rbac.filter_by_role("finance", sample_results)
-    print(f"Finance User saw {len(finance_results)} results.")
+    print("Testing Finance User:")
+    res = rbac.filter_by_role("finance", sample_results)
+    for r in res: print(f"- {r['metadata']['department']}")
     
-    print("\n--- Testing Access for HR User querying Finance docs ---")
-    # This specifically tests if HR can see Finance docs (should be denied according to hierarchy)
-    hr_finance_test = [
-         {"id": 2, "content": "Q4 Financial Report", "department": "Finance"}
-    ]
-    hr_results = rbac.filter_by_role("hr", hr_finance_test)
-    print(f"HR User saw {len(hr_results)} Finance results.")
-
-    print("\n--- Testing Access for C-LEVEL User ---")
-    clevel_results = rbac.filter_by_role("c-level", sample_results)
-    print(f"C-Level User saw {len(clevel_results)} results.")
-
-    print("\n--- Testing Access for EMPLOYEE User ---")
-    employee_results = rbac.filter_by_role("employees", sample_results)
-    print(f"Employee saw {len(employee_results)} results.")
+    print("\nTesting C-Level User:")
+    res = rbac.filter_by_role("c-level", sample_results)
+    for r in res: print(f"- {r['metadata']['department']}")

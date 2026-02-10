@@ -1,146 +1,107 @@
-import json
-import logging
-import time
+import sys
 import os
-from datetime import datetime
+import json
+from openai import OpenAI
+from dotenv import load_dotenv
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# Load env
+load_dotenv()
+
+# Paths
+base_dir = os.path.dirname(os.path.abspath(__file__))
+week4_src = os.path.join(base_dir, '..', '..', 'week 4', 'src')
+sys.path.append(week4_src)
+
+from search_pipeline import SearchPipeline
 
 class RAGPipeline:
-    def __init__(self, config_path):
-        self.config = self._load_config(config_path)
-        # Placeholder for vector DB connection
-        self.vector_db = None 
-        # Placeholder for role hierarchy
-        self.role_hierarchy = {
-            "c-level": ["all"],
-            "finance": ["finance", "general"],
-            "hr": ["hr", "general"],
-            "engineering": ["engineering", "general"],
-            "marketing": ["marketing", "general"],
-            "employees": ["general"]
-        }
-
-    def _load_config(self, path):
-        try:
-            with open(path, 'r') as f:
-                return json.load(f)
-        except Exception as e:
-            logger.error(f"Failed to load config: {e}")
-            return {}
-
-    def authenticate_user(self, user_id):
-        """
-        Mock authentication to get user role.
-        In a real app, this would verify a token or query a user DB.
-        """
-        # Mock user database
-        mock_users = {
-            "user_001": "c-level",
-            "user_002": "finance",
-            "user_003": "hr",
-            "user_004": "engineering",
-            "user_005": "marketing",
-            "user_006": "employees"
-        }
-        role = mock_users.get(user_id, "employees")
-        logger.info(f"User {user_id} authenticated as {role}")
-        return role
-
-    def filter_by_rbac(self, user_role, chunks):
-        """
-        Filters chunks based on user role permissions.
-        """
-        allowed_depts = self.role_hierarchy.get(user_role, ["general"])
-        if "all" in allowed_depts:
-            return chunks
-
-        filtered_chunks = []
-        for chunk in chunks:
-            # Assuming chunk metadata has 'department' or 'access_group'
-            chunk_dept = chunk.get("metadata", {}).get("department", "general").lower()
-            if chunk_dept in allowed_depts or "general" in allowed_depts: # simplistic check
-                filtered_chunks.append(chunk)
-            
-        return filtered_chunks
-
-    def retrieve_chunks(self, query):
-        """
-        Mock retrieval of chunks. 
-        In production, this queries the Vector DB using the query embedding.
-        """
-        # Mock chunks for demonstration
-        return [
-            {"id": "1", "content": "Finance Report Q1...", "metadata": {"department": "finance"}, "score": 0.9},
-            {"id": "2", "content": "Engineering Guidelines...", "metadata": {"department": "engineering"}, "score": 0.8},
-            {"id": "3", "content": "General Policies...", "metadata": {"department": "general"}, "score": 0.75},
-        ]
-
-    def build_context(self, query, chunks):
-        """
-        Constructs a prompt context from retrieved chunks.
-        """
-        context_text = "\n\n".join([c['content'] for c in chunks])
-        prompt = f"Context:\n{context_text}\n\nQuestion: {query}\n\nAnswer:"
-        return prompt
-
-    def generate_response(self, prompt):
-        """
-        Mock LLM call.
-        """
-        # In reality, involve OpenAI/Anthropic API here
-        return f"Generated response based on {len(prompt)} chars of context."
-
-    def add_citations(self, response, sources):
-        return f"{response}\n\nSources:\n" + "\n".join([s['id'] for s in sources])
-
-    def run(self, user_id, query):
-        start_time = time.time()
+    def __init__(self):
+        self.retriever = SearchPipeline()
         
-        # 1. Authenticate
-        role = self.authenticate_user(user_id)
+        # Configure LLM Client
+        # User requested support for OpenRouter or similar
+        self.api_key = os.getenv("LLM_API_KEY")
+        self.base_url = os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1")
+        self.model_name = os.getenv("LLM_MODEL", "mistralai/mistral-7b-instruct")
         
-        # 2. Retrieve (Mock)
-        all_retrieved = self.retrieve_chunks(query)
-        
-        # 3. Filter by RBAC
-        # Note: In a real system, you might filter specific chunks. 
-        # Check simplistic Mock logic in filter_by_rbac.
-        filtered_chunks = []
-        allowed_depts = self.role_hierarchy.get(role, ["general"])
-        
-        # Improving the mock filter logic for this demonstration since chunks are hardcoded
-        if "all" in allowed_depts:
-            filtered_chunks = all_retrieved
+        if self.api_key:
+            print(f"RAG Initialized with LLM: {self.model_name}")
+            self.client = OpenAI(
+                api_key=self.api_key,
+                base_url=self.base_url
+            )
         else:
-            for chunk in all_retrieved:
-                dept = chunk["metadata"]["department"]
-                if dept in allowed_depts:
-                    filtered_chunks.append(chunk)
+            print("RAG Initialized in Offline Mode (No API Key found)")
+            self.client = None
 
-        # 4. Build Context
-        context = self.build_context(query, filtered_chunks)
+    def generate_response(self, query, user_role, stream=False):
+        # 1. Retrieve Context
+        search_result = self.retriever.search(query, user_role)
+        results = search_result['results']
         
-        # 5. Generate Response
-        raw_response = self.generate_response(context)
+        # 2. Build Context String
+        context_text = ""
+        sources = []
+        for i, res in enumerate(results):
+            content = res['content'].replace("\n", " ")
+            dept = res['metadata'].get('department', 'Unknown')
+            context_text += f"\n[Doc {i+1} - {dept}]: {content}\n"
+            sources.append(res)
+            
+        # 3. Construct Prompt
+        system_prompt = """You are a secure internal enterprise assistant.
+        1. For greetings (e.g., 'Hi', 'Hello'), respond politely and concisely.
+        2. For questions asking for information, use ONLY the provided context.
+        3. If the answer is not in the context, say 'I cannot find this information in the documents you have access to.'
+        4. Do not answer general knowledge questions outside the context.
+        """
         
-        # 6. Add Citations
-        final_response = self.add_citations(raw_response, filtered_chunks)
+        user_prompt = f"""
+        CONTEXT:
+        {context_text}
         
-        processing_time = time.time() - start_time
+        QUESTION: 
+        {query}
         
-        result = {
-            "response": final_response,
-            "sources": [c['id'] for c in filtered_chunks],
-            "confidence_score": 0.95 if filtered_chunks else 0.0,
-            "processing_time": processing_time
+        ANSWER:
+        """
+        
+        # 4. Call LLM or Fallback
+        generated_text = ""
+        
+        if self.client:
+            try:
+                completion = self.client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ]
+                )
+                generated_text = completion.choices[0].message.content
+            except Exception as e:
+                generated_text = f"Error generating response: {str(e)}"
+        else:
+            if not results:
+                generated_text = "I couldn't find any relevant documents. (AI Generation is disabled)"
+            else:
+                generated_text = "Detailed AI response is disabled (No API Key). Here are the documents found:"
+
+        return {
+            "query": query,
+            "response": generated_text,
+            "results": sources,
+            "metrics": {
+                "documents_retrieved": len(sources),
+                "avg_similarity": round(sum([1 - r.get('score', 0.5) for r in sources]) / max(len(sources), 1), 3),
+                "llm_enabled": self.client is not None,
+                "model": self.model_name if self.client else None,
+                "context_tokens": len(context_text.split())
+            }
         }
-        
-        return result
 
-# Usage Example
 if __name__ == "__main__":
-    pipeline = RAGPipeline("../config/pipeline_config.json")
-    print(pipeline.run("user_002", "Tell me about Q1 finances."))
+    rag = RAGPipeline()
+    # Mock test if key exists
+    if os.getenv("LLM_API_KEY"):
+        print(rag.generate_response("Q4 revenue", "finance"))

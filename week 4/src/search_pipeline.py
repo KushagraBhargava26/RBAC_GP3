@@ -1,60 +1,74 @@
-import time
+import sys
+import os
+import json
+import logging
+
+# Paths
+base_dir = os.path.dirname(os.path.abspath(__file__))
+week3_src = os.path.join(base_dir, '..', '..', 'week 3', 'src')
+sys.path.append(week3_src)
+
+# Imports
+try:
+    from semantic_search import SemanticSearch
+except ImportError:
+    print("Error importing SemanticSearch. Make sure week 3/src is correct.")
+    
 from query_processor import QueryProcessor
 from rbac_filter import RBACFilter
 from chunk_selector import ChunkSelector
 
+# Logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 class SearchPipeline:
     def __init__(self):
-        self.query_processor = QueryProcessor()
-        self.rbac_filter = RBACFilter()
-        self.chunk_selector = ChunkSelector()
-
-    def search(self, query, user_role):
-        start_time = time.time()
-        try:
-            # Step 1: Preprocess query
-            print("Step 1: Preprocessing query...")
-            processed_query = self.query_processor.preprocess(query)
-            print("Step 1: Preprocessing query completed")
-
-            # Step 2: Generate query embedding
-            print("Step 2: Generating query embedding...")
-            query_embedding = self.query_processor.generate_embedding(processed_query)
-            print("Step 2: Generating query embedding completed")
-
-            # Step 3: Search vector database
-            print("Step 3: Searching vector database...")
-            search_results = self.query_processor.search_vector_database(query_embedding)
-            print("Step 3: Searching vector database completed")
-
-            # Step 4: Filter by RBAC
-            print("Step 4: Filtering by RBAC...")
-            filtered_results = self.rbac_filter.filter(search_results, user_role)
-            print("Step 4: Filtering by RBAC completed")
-
-            # Step 5: Select top-K chunks
-            print("Step 5: Selecting top-K chunks...")
-            top_k_chunks = self.chunk_selector.select_top_k(filtered_results)
-            print("Step 5: Selecting top-K chunks completed")
-
-            # Step 6: Return results with metadata
-            processing_time = time.time() - start_time
-            return {
-                "results": top_k_chunks,
-                "total_found": len(search_results),
-                "filtered_count": len(filtered_results),
-                "processing_time": processing_time
-            }
-
-        except Exception as e:
-            print(f"Error during search pipeline execution: {e}")
-            return {
-                "error": str(e)
-            }
+        logger.info("Initializing Search Pipeline...")
+        self.processor = QueryProcessor()
+        self.searcher = SemanticSearch()
+        self.rbac = RBACFilter()
+        self.selector = ChunkSelector()
+        
+    def search(self, query, user_role, top_k=5):
+        logger.info(f"Pipeline Start: q='{query}' role='{user_role}'")
+        
+        # 1. Preprocess Query
+        processed_query = self.processor.preprocess(query)
+        logger.info(f"Processed Query: {processed_query}")
+        
+        # 2. Vector Search (Get more results than needed to allow for filtering)
+        # Fetching 5x top_k to ensure we have enough after RBAC
+        raw_results = self.searcher.search(processed_query, n_results=top_k * 5)
+        logger.info(f"Vector Search Found: {len(raw_results)}")
+        
+        # 3. RBAC Filtering
+        filtered_results = self.rbac.filter_by_role(user_role, raw_results)
+        logger.info(f"After RBAC Filter: {len(filtered_results)}")
+        
+        # 4. Chunk Selection (Re-ranking/Thresholding)
+        final_results = self.selector.select_chunks(filtered_results)
+        # Limit to top_k again just in case selector logic differs
+        final_results = final_results[:top_k]
+        logger.info(f"Final Selection: {len(final_results)}")
+        
+        return {
+            "query": query,
+            "processed_query": processed_query,
+            "results": final_results,
+            "total_found": len(raw_results),
+            "filtered_count": len(raw_results) - len(filtered_results)
+        }
 
 if __name__ == "__main__":
     pipeline = SearchPipeline()
-    query = "example query"
-    user_role = "admin"
-    results = pipeline.search(query, user_role)
-    print(results)
+    
+    # Test Scenario
+    q = "Q4 revenue"
+    role = "finance"
+    
+    res = pipeline.search(q, role)
+    
+    print("\nSearch Results:")
+    for r in res['results']:
+        print(f"[{r['metadata'].get('department')}] {r['content'][:50]}... (Score: {r['score']:.4f})")

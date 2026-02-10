@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Toaster } from "sonner";
+// Default create-next-app uses imports from 'next/font/google' usually, trying to match template.
+// But template was 'app-tw' (minimal?). Let's check imports.
+// Assuming Inter is safe.
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "RBAC Chatbot",
-  description: "Secure Enterprise RAG System with Role-Based Access Control",
+  description: "Secure Enterprise RAG System",
 };
 
 export default function RootLayout({
@@ -14,20 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white antialiased">
+      <body className={`${inter.className} min-h-screen bg-black text-white antialiased`}>
         {children}
-        <Toaster
-          position="top-right"
-          richColors
-          theme="dark"
-          toastOptions={{
-            style: {
-              background: 'rgba(0, 0, 0, 0.8)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-            },
-          }}
-        />
+        <Toaster />
       </body>
     </html>
   );

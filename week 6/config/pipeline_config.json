@@ -1,7 +1,0 @@
-{
-  "max_chunks": 5,
-  "similarity_threshold": 0.3,
-  "max_response_tokens": 500,
-  "temperature": 0.7,
-  "include_sources": true
-}
