@@ -2,6 +2,24 @@
 
 A secure internal chatbot system with Role-Based Access Control (RBAC) and Retrieval-Augmented Generation (RAG).
 
+---
+
+## 👥 The RBAC Group 3 Team
+**Led by Arshad Pasha | 8 Active Members**
+
+| Role | Name | Contact | Status |
+| :--- | :--- | :--- | :--- |
+| 👑 **Team Leader** | **Arshad Pasha** | [arshadpashaintern@gmail.com](mailto:arshadpashaintern@gmail.com) | ✅ Active |
+| 👨‍💻 Member | **Depuru Joshika Reddy** | [joshikareddy07@gmail.com](mailto:joshikareddy07@gmail.com) | ✅ Active |
+| 👨‍💻 Member | **Guru Karthik Reddy Marthala** | [marthalagurukarthikreddy11@gmail.com](mailto:marthalagurukarthikreddy11@gmail.com) | ✅ Active |
+| 👩‍💻 Member | **Kavya Ghantasala** | [vtu24677@veltech.edu.in](mailto:vtu24677@veltech.edu.in) | ✅ Active |
+| 👨‍💻 Member | **Kushagra Bhargava** | [kushagra.23bai10987@vitbhopal.ac.in](mailto:kushagra.23bai10987@vitbhopal.ac.in) | ✅ Active |
+| 👩‍💻 Member | **Mandha Shirisha** | [mandhashirisha90@gmail.com](mailto:mandhashirisha90@gmail.com) | ✅ Active |
+| 👩‍💻 Member | **Sri Saranya Chandrapati** | [srnya0986@gmail.com](mailto:srnya0986@gmail.com) | ✅ Active |
+| 👩‍💻 Member | **Vinuthna Jangam** | [vinuthnaaj@gmail.com](mailto:vinuthnaaj@gmail.com) | ✅ Active |
+
+---
+
 ## 🚀 Setup & Installation
 
 1.  **Clone / Folder Setup**:

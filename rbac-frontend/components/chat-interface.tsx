@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSearchParams, useRouter } from "next/navigation"
 import api from "@/lib/api"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -34,6 +35,16 @@ export default function ChatInterface() {
     const [dept, setDept] = useState("general")
     const [username, setUsername] = useState<string | null>(null)
     const [userRole, setUserRole] = useState<string | null>(null)
+    const searchParams = useSearchParams()
+    const router = useRouter()
+
+    // Sync dept with URL query param
+    useEffect(() => {
+        const queryDept = searchParams.get("dept")
+        if (queryDept) {
+            setDept(queryDept)
+        }
+    }, [searchParams])
 
     // Suggested questions per department - organized by access type
     const suggestedQuestions: Record<string, { authorized: string[], testUnauthorized: string[] }> = {
@@ -144,7 +155,14 @@ export default function ChatInterface() {
 
         try {
             const res = await api.post(`/query/${dept}`, { query: userMsg.content })
-            const { response, results, metrics } = res.data
+            let { response, results, metrics } = res.data
+
+            // Clean up markdown bolding stars if present (Simple fix for "stars" issue)
+            if (response) {
+                // Replace **text** with just text to remove the "star star star" appearance
+                // The user complained about seeing stars, so we remove the markdown bolding
+                response = response.replace(/\*\*/g, '')
+            }
 
             const botMsg = {
                 role: "bot" as const,
@@ -168,6 +186,19 @@ export default function ChatInterface() {
         }
     }
 
+    // Role-based department access
+    const getVisibleDepartments = () => {
+        const allDepts = ["finance", "hr", "marketing", "engineering", "general"]
+        if (!userRole) return ["general"]
+
+        const role = userRole.toLowerCase()
+        if (role === "c-level") return allDepts
+        if (role === "employees") return ["general"]
+
+        // Return context specific department + general
+        return [role, "general"]
+    }
+
     return (
         <div className="flex flex-col h-full max-w-5xl mx-auto p-4 md:p-8">
             {/* Welcome Header */}
@@ -188,12 +219,12 @@ export default function ChatInterface() {
                     <Bot className="text-blue-500" /> Secure RAG Chat
                 </h2>
                 <div className="flex gap-2 flex-wrap justify-center">
-                    {["finance", "hr", "marketing", "engineering", "general"].map(d => (
+                    {getVisibleDepartments().map(d => (
                         <Badge
                             key={d}
                             variant={dept === d ? "default" : "outline"}
                             className={`cursor-pointer capitalize hover:bg-blue-600/50 transition-all ${dept === d ? 'bg-blue-600 shadow-lg shadow-blue-500/20' : 'text-gray-400 border-gray-700 hover:border-gray-500'}`}
-                            onClick={() => setDept(d)}
+                            onClick={() => router.push(`/dashboard?dept=${d}`)}
                         >
                             {d}
                         </Badge>

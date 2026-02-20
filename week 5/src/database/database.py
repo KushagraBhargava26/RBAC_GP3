@@ -49,21 +49,23 @@ def seed_users():
     db = SessionLocal()
     
     users = [
-        ("admin", "admin@company.com", "admin123", "c-level"),
-        ("finance_user", "finance@company.com", "pass123", "finance"),
-        ("hr_user", "hr@company.com", "pass123", "hr"),
-        ("marketing_user", "marketing@company.com", "pass123", "marketing"),
+        ("arshad@rbac.com", "arshad@rbac.com", "admin123", "c-level"),
+        ("priyanshu@rbac.com", "priyanshu@rbac.com", "pass123", "finance"),
+        ("kanak@rbac.com", "kanak@rbac.com", "pass123", "hr"),
+        ("shirisha@rbac.com", "shirisha@rbac.com", "pass123", "marketing"),
         ("eng_user", "eng@company.com", "pass123", "engineering"),
         ("employee", "employee@company.com", "pass123", "employees")
     ]
     
+    # Clear existing users to ensure new usernames are applied
+    db.query(User).delete()
+    db.commit()
+    
     for username, email, password, role in users:
-        existing = db.query(User).filter(User.username == username).first()
-        if not existing:
-            hashed = pwd_context.hash(password)
-            user = User(username=username, email=email, hashed_password=hashed, role=role)
-            db.add(user)
-            print(f"Created user: {username} ({role})")
+        hashed = pwd_context.hash(password)
+        user = User(username=username, email=email, hashed_password=hashed, role=role)
+        db.add(user)
+        print(f"Created user: {username} ({role})")
             
     db.commit()
     db.close()
