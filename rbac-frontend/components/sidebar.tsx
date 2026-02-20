@@ -14,17 +14,35 @@ export default function Sidebar() {
     const [role, setRole] = useState<string | null>(null)
 
     useEffect(() => {
-        // Decode role from token (jwt-decode would be better, but quick hack)
-        // Or just rely on what we stored or fetch profile.
         setUsername(localStorage.getItem("username"))
-        // In real app, fetch /auth/me
+        setRole(localStorage.getItem("user_role"))
     }, [])
 
     const handleLogout = () => {
         localStorage.removeItem("access_token")
         localStorage.removeItem("username")
+        localStorage.removeItem("user_role")
         toast.success("Logged out")
         router.push("/login")
+    }
+
+    const getVisibleDepts = () => {
+        const allDepts = ["Finance", "HR", "Marketing", "Engineering", "General"]
+        if (!role) return ["General"]
+
+        const userRole = role.toLowerCase()
+        if (userRole === "c-level") return allDepts
+
+        // Match role name to department name
+        const roleToDept: Record<string, string> = {
+            "finance": "Finance",
+            "hr": "HR",
+            "marketing": "Marketing",
+            "engineering": "Engineering"
+        }
+
+        const specificDept = roleToDept[userRole]
+        return specificDept ? [specificDept, "General"] : ["General"]
     }
 
     return (
@@ -41,11 +59,15 @@ export default function Sidebar() {
                     <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
                         Departments
                     </div>
-                    {/* Static list for now, could be dynamic based on role */}
-                    {["Finance", "HR", "Marketing", "Engineering", "General"].map((dept) => (
-                        <Button key={dept} variant="ghost" className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5">
+                    {getVisibleDepts().map((deptName) => (
+                        <Button
+                            key={deptName}
+                            variant="ghost"
+                            className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5"
+                            onClick={() => router.push(`/dashboard?dept=${deptName.toLowerCase()}`)}
+                        >
                             <Building className="mr-2 h-4 w-4" />
-                            {dept}
+                            {deptName}
                         </Button>
                     ))}
                 </div>

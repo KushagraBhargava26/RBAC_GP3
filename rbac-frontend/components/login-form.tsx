@@ -11,10 +11,10 @@ import { toast } from "sonner"
 import { Loader2, User, Shield, Briefcase, Users } from "lucide-react"
 
 const DEMO_CREDENTIALS = [
-    { username: "admin", password: "admin123", role: "C-Level", icon: Shield, color: "from-purple-500 to-indigo-500" },
-    { username: "finance_user", password: "pass123", role: "Finance", icon: Briefcase, color: "from-green-500 to-emerald-500" },
-    { username: "hr_user", password: "pass123", role: "HR", icon: Users, color: "from-blue-500 to-cyan-500" },
-    { username: "marketing_user", password: "pass123", role: "Marketing", icon: User, color: "from-orange-500 to-amber-500" },
+    { username: "arshad@rbac.com", password: "admin123", role: "C-Level", icon: Shield, color: "from-purple-500 to-indigo-500" },
+    { username: "priyanshu@rbac.com", password: "pass123", role: "Finance", icon: Briefcase, color: "from-green-500 to-emerald-500" },
+    { username: "kanak@rbac.com", password: "pass123", role: "HR", icon: Users, color: "from-blue-500 to-cyan-500" },
+    { username: "shirisha@rbac.com", password: "pass123", role: "Marketing", icon: User, color: "from-orange-500 to-amber-500" },
 ]
 
 export default function LoginForm() {
