@@ -30,7 +30,7 @@
 
 6. Click **"Create Web Service"**
 7. Wait for deployment (5-10 minutes)
-8. Copy your backend URL: `https://rbac-backend-xxxx.onrender.com`
+8. Copy your backend URL: `https://rbac-gp3.onrender.com`
 
 ### Step 3: Update CORS in Backend
 Once deployed, update the CORS origins in `week 5/src/main.py` to include your Vercel frontend URL.
