@@ -1,4 +1,5 @@
 {
+    "version": 2,
     "framework": "nextjs",
-    "rootDirectory": "rbac-frontend"
+    "outputDirectory": "rbac-frontend/.next"
 }
